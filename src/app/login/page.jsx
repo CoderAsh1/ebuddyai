@@ -1,5 +1,7 @@
 "use client"
-import { useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
     Input,
     Ripple,
@@ -7,6 +9,18 @@ import {
   } from "tw-elements";
 
 export default function Login() {
+  const router = useRouter()
+  const [user,setUser] = useState({email:"",password:""})
+
+  async function handleLogin(){
+    try {
+      let res = await axios.post("/api/login",user)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
     useEffect(() => {
         initTE({ Input, Ripple });
     }, [])
@@ -31,7 +45,10 @@ export default function Login() {
                     We are The Lotus Team
                   </h4>
                 </div>
-                <form>
+                <form onSubmit={(e)=>{
+                  e.preventDefault()
+                  handleLogin()
+                }}>
                   <p className="mb-4">Please login to your account</p>
                   {/*Username input*/}
                   <div className="relative mb-4" data-te-input-wrapper-init="">
@@ -41,6 +58,7 @@ export default function Login() {
                       id="exampleFormControlInput1"
                       placeholder="Email"
                       required
+                      onChange={(e)=>setUser(prev=>{return {...prev,email:e.target.value}})}
                     />
                     <label
                       htmlFor="exampleFormControlInput1"
@@ -57,6 +75,7 @@ export default function Login() {
                       id="exampleFormControlInput11"
                       placeholder="Password"
                       required
+                      onChange={(e)=>setUser(prev=>{return {...prev,password:e.target.value}})}
                     />
                     <label
                       htmlFor="exampleFormControlInput11"
@@ -86,6 +105,7 @@ export default function Login() {
                   <div className="flex items-center justify-between pb-6">
                     <p className="mb-0 mr-2">Don't have an account?</p>
                     <button
+                      onClick={()=>router.push("/signup")}
                       type="button"
                       className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
                       data-te-ripple-init=""
