@@ -1,3 +1,5 @@
+
+"use client"
 import './globals.css'
 import "tw-elements/dist/css/tw-elements.min.css";
 
@@ -14,6 +16,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="cupcake">
       <body className={poppins.className}>{children}</body>
+    {/* <script
+      id="retune.so/chat"
+      src="https://retune.so/api/script/chat.js?id=11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"
+      defer
+    ></script> */}
     </html>
   )
 }

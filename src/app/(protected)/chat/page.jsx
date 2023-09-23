@@ -1,5 +1,7 @@
 "use client"
 
+import { useState } from "react"
+
 export default function Chat() {
   const [messages,setMessages] = useState([])
   const [state,setState] = useState([])
@@ -15,6 +17,7 @@ export default function Chat() {
           loading="lazy"
           />
         </div>
+        
       <div className="flex items-center gap-2 self-end max-w-3xl">
         <img
           src="https://tecdn.b-cdn.net/img/new/avatars/3.jpg"
