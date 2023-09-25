@@ -1,149 +1,58 @@
 "use client"
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-    Input,
-    Ripple,
-    initTE,
-  } from "tw-elements";
+import toast, { Toaster } from "react-hot-toast";
+
 
 export default function Login() {
   const router = useRouter()
   const [user,setUser] = useState({email:"",password:""})
+  const [loading,setLoading] = useState(false)
 
-  async function handleLogin(){
+  async function handleLogin(e){
+    e.preventDefault()
     try {
-      let res = await axios.post("/api/login",user)
-      console.log(res)
+      setLoading(true)
+      await axios.post("/api/login",user)
       router.push("/dashboard")
     } catch (error) {
-      console.log(error)
-    }
+      toast.error(error.response.data.error);
+    }finally {setLoading(false)}
   }
 
-    useEffect(() => {
-        initTE({ Input, Ripple });
-    }, [])
   return (
-<section className="gradient-form h-screen w-screen bg-neutral-200 dark:bg-neutral-700 flex justify-center items-center">
-  <div className="container h-full p-10 w-screen">
-    <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-      <div className="w-full">
-        <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
-          <div className="g-0 lg:flex lg:flex-wrap">
-            {/* Left column container*/}
-            <div className="px-4 md:px-0 lg:w-6/12">
-              <div className="md:mx-6 md:p-12">
-                {/*Logo*/}
-                <div className="text-center">
-                  <img
-                    className="mx-auto w-48"
-                    src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                    alt="logo"
-                  />
-                  <h4 className="mb-12 mt-1 pb-1 text-xl font-semibold">
-                    We are The Lotus Team
-                  </h4>
-                </div>
-                <form onSubmit={(e)=>{
-                  e.preventDefault()
-                  handleLogin()
-                }}>
-                  <p className="mb-4">Please login to your account</p>
-                  {/*Username input*/}
-                  <div className="relative mb-4" data-te-input-wrapper-init="">
-                    <input
-                      type="text"
-                      className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                      id="exampleFormControlInput1"
-                      placeholder="Email"
-                      required
-                      onChange={(e)=>setUser(prev=>{return {...prev,email:e.target.value}})}
-                    />
-                    <label
-                      htmlFor="exampleFormControlInput1"
-                      className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                    >
-                      Email
-                    </label>
-                  </div>
-                  {/*Password input*/}
-                  <div className="relative mb-4" data-te-input-wrapper-init="">
-                    <input
-                      type="password"
-                      className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                      id="exampleFormControlInput11"
-                      placeholder="Password"
-                      required
-                      onChange={(e)=>setUser(prev=>{return {...prev,password:e.target.value}})}
-                    />
-                    <label
-                      htmlFor="exampleFormControlInput11"
-                      className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                    >
-                      Password
-                    </label>
-                  </div>
-                  {/*Submit button*/}
-                  <div className="mb-12 pb-1 pt-1 text-center">
-                    <button
-                      className="mb-3 inline-block w-full rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
-                      type="submit"
-                      data-te-ripple-init=""
-                      data-te-ripple-color="light"
-                      style={{
-                        background:
-                          "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)"
-                      }}
-                    >
-                      Log in
-                    </button>
-                    {/*Forgot password link*/}
-                    <a href="#!">Forgot password?</a>
-                  </div>
-                  {/*Register button*/}
-                  <div className="flex items-center justify-between pb-6">
-                    <p className="mb-0 mr-2">Don't have an account?</p>
-                    <button
-                      onClick={()=>router.push("/signup")}
-                      type="button"
-                      className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-                      data-te-ripple-init=""
-                      data-te-ripple-color="light"
-                    >
-                      Register
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            {/* Right column container with background and description*/}
-            <div
-              className="flex items-center rounded-b-lg lg:w-6/12 lg:rounded-r-lg lg:rounded-bl-none"
-              style={{
-                background:
-                  "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)"
-              }}
-            >
-              <div className="px-4 py-6 text-white md:mx-6 md:p-12">
-                <h4 className="mb-6 text-xl font-semibold">
-                  We are more than just a company
-                </h4>
-                <p className="text-sm">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-              </div>
-            </div>
+    <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 login_card ">
+      <div className="card_blur p-10  lg:w-[30vw] min-w-[400px]">
+        <div className="text-center font-bold text-xl text-white">ExamBuddyAI</div>
+        <form onSubmit={handleLogin}>
+          <div className="form-control w-full">
+            <label className="label">
+              <span className="label-text font-bold text-md text-white">Email</span>
+            </label>
+            <input required autoFocus type="text" placeholder="Type here" className="input input-bordered w-full " 
+            onChange={e=>setUser(prev=>({...prev,email:e.target.value}))}/>
           </div>
-        </div>
+          <div className="form-control w-full ">
+            <label className="label">
+              <span className="label-text font-bold text-md text-white">Password</span>
+              <span className="label-text-alt">Top Right label</span>
+            </label>
+            <input required type="text" placeholder="Type here" className="input input-bordered w-full" 
+            onChange={e=>setUser(prev=>({...prev,password:e.target.value}))}/>
+          </div>
+          {loading ? <button className="btn w-full mt-4 bg-grad bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white">
+            <span className="loading loading-spinner"></span>
+          </button> :    
+          <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600">Login</button> }
+            <div className="text-center mt-5 text-sm text-white">Don't have an Account ?</div>
+            <Link href='/signup'>
+            <button className="btn w-full mt-4 text-white bg-[#190978] hover:bg-[#211a47]" type="button">Register Now</button>
+            </Link>
+        </form>
       </div>
+     <Toaster/>
     </div>
-  </div>
-</section>
-
   )
 }

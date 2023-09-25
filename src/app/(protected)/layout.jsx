@@ -14,13 +14,6 @@ export default function RootLayout({ children }) {
         <Navbar/>
         {children}</div>
       </body>
-      
-    <script
-      id="retune.so/chat"
-      src="https://retune.so/api/script/chat.js?id=11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"
-      defer
-    ></script>
-
     </html>
     
   )

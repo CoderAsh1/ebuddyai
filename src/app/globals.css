@@ -19,3 +19,52 @@
 .text-primary{
   color: green !important;
 }
+
+.card_blur {
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(17, 25, 40, 0.75);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+/* .slogan {
+  margin-bottom: 3rem;
+  width: 70%;
+  letter-spacing: 0.1rem;
+  line-height: 2.8rem;
+  @media (max-width: 850px) {
+    width: 100%;
+  }
+} */
+
+.slogan  > span{
+  /* font-size: 3rem; */
+  font-weight: 900;
+  background: linear-gradient(
+    40deg,
+    rgb(8, 236, 8),
+    rgb(250, 9, 250),
+    rgba(6, 214, 221, 0.555),
+    rgb(0, 250, 0)
+  );
+  background-size: 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text 10s ease-in infinite;
+}
+
+@keyframes text {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 400%;
+  }
+}
+
+.login_card{
+  background: linear-gradient(123deg, #FFFFFF 0%, #00B2FF 100%), linear-gradient(236deg, #BAFF99 0%, #005E64 100%), linear-gradient(180deg, #FFFFFF 0%, #002A5A 100%), linear-gradient(225deg, #0094FF 20%, #BFF4ED 45%, #280F34 45%, #280F34 70%, #FF004E 70%, #E41655 85%, #B30753 85%, #B30753 100%), linear-gradient(135deg, #0E0220 15%, #0E0220 35%, #E40475 35%, #E40475 60%, #48E0E4 60%, #48E0E4 68%, #D7FBF6 68%, #D7FBF6 100%);
+background-blend-mode: overlay, overlay, overlay, darken, normal;
+}
