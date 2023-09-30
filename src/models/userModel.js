@@ -15,6 +15,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a password"],
     },
+    isSubscribed : {
+        type : Boolean,
+        default : false
+    },
+    subscriptionExpireOn : {
+        type : Date
+    },
     isVerfied: {
         type: Boolean,
         default: false,
@@ -22,6 +29,18 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false,
+    },
+    hasCompanion : {
+        type : Boolean,
+        default : false
+    },
+    companion :{
+        type : String,
+        enum :["SSC", "JEE","NEET"],
+    },
+    freeCredits : {
+        type : Number,
+        default : 10
     },
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
