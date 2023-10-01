@@ -19,6 +19,7 @@ export default function Login() {
       let userInfo = await axios.get("/api/user")
       router.push(userInfo?.data?.user?.hasCompanion ? "/chat" : "/choose_compaion")
     } catch (error) {
+      console.log(error)
       toast.error(error.response.data.error);
     }finally {setLoading(false)}
   }
