@@ -17,7 +17,7 @@ export default function Login() {
       setLoading(true)
       await axios.post("/api/signup",user)
       toast.success("User created Successfully.")
-      router.push("/dashboard")
+      router.push("/login")
     } catch (error) {
       toast.error(error.response.data.error);
     }finally {setLoading(false)}

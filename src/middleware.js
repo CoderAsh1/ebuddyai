@@ -1,20 +1,20 @@
 import { NextResponse } from 'next/server'
  
 
-export function middleware(request) {
-//   const path = request.nextUrl.pathname
+export async function middleware(request) {
+  const path = request.nextUrl.pathname
 
-//   const isPublicPath = path === '/login' || path === '/signup' || path === '/verifyemail'
+  const isPublicPath = path === '/login' || path === '/signup' || path === '/verifyemail'
 
-//   const token = request.cookies.get('token')?.value || ''
+  const token = request.cookies.get('token')?.value || ''
 
-//   if(isPublicPath && token) {
-//     return NextResponse.redirect(new URL('/', request.nextUrl))
-//   }
+  if(isPublicPath && token) {
+    return NextResponse.redirect(new URL('/chat', request.nextUrl))
+  }
 
-//   if (!isPublicPath && !token) {
-//     return NextResponse.redirect(new URL('/login', request.nextUrl))
-//   }
+  if (!isPublicPath && !token) {
+    return NextResponse.redirect(new URL('/login', request.nextUrl))
+  }
     
 }
 
@@ -23,9 +23,10 @@ export function middleware(request) {
 export const config = {
   matcher: [
     '/',
-    '/profile',
+    '/chat',
     '/login',
     '/signup',
-    '/verifyemail'
+    '/verifyemail',
+    '/choose_companion'
   ]
 }

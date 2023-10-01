@@ -1,34 +1,38 @@
-import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/userModel";
+
 import { connect } from "@/dbConfig/dbConfig";
 import { getDataFromToken } from "@/helper/getDataFromToken";
+import User from "@/models/userModel";
+import { NextResponse } from "next/server";
 
 connect();
 
 export async function GET(request){
+
     try {
         const userId = await getDataFromToken(request);
         const user = await User.findById(userId)
         return NextResponse.json({
             mesaaage: "User found",
-            user
+            user: user
         })
     } catch (error) {
         return NextResponse.json({error: error.message}, {status: 400});
     }
+
 }
 
-export async function POST(request){
-    const reqBody = await request.json()
-    const {username, password} = reqBody
+export async function PUT(request) {
     try {
+        const reqBody = await request.json()
         const userId = await getDataFromToken(request);
-        const user = await User.findByIdAndUpdate(userId,{ isSubscribed :true . companion  : })
+ 
+        let user = await User.findByIdAndUpdate(userId, reqBody);
+
         return NextResponse.json({
-            mesaaage: "User found",
-            user
-        })
+            message: "User updated successfully",
+            user:user
+        });
     } catch (error) {
-        return NextResponse.json({error: error.message}, {status: 400});
+        return NextResponse.json({ error: error.message }, { status: 400 });
     }
 }

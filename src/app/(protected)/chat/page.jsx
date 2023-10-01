@@ -1,45 +1,53 @@
 "use client"
 
-import { useState } from "react"
+import axios from "axios"
+import moment from "moment"
+import { useEffect, useState } from "react"
 
-export default function Chat() {
-  const [messages,setMessages] = useState([])
-  const [state,setState] = useState([])
+
+export default function page() {
+
+  const [user,setUser] = useState([])
+  const [loader,setLoader] = useState(true)
+
+async function getUser(){
+    try {   
+    let user = await axios.get("/api/user")
+    setUser(user.data.user)
+    } catch (error) {
+      console.log(error,"this is the error")
+    }finally{setLoader(false)}
+  }
+
+  useEffect(() => {
+    getUser()
+  }, [])
+  
+  
   return (
-    <div className="p-5 bg-blue-100 flex flex-col h-[92vh] gap-7">
-      <div className="flex items-center gap-2 max-w-3xl">
-        <div className="bg-blue-200 p-3 rounded-md self-start">Hello I am James I am a frontEnd developer here to help you with your problems, Hello I am James I am a frontEnd developer here to help you with your problems</div>
-        <img
-          src="https://tecdn.b-cdn.net/img/new/avatars/2.jpg"
-          className="rounded-full"
-          style={{ height: 40, width: 40 }}
-          alt=""
-          loading="lazy"
-          />
-        </div>
-        
-      <div className="flex items-center gap-2 self-end max-w-3xl">
-        <img
-          src="https://tecdn.b-cdn.net/img/new/avatars/3.jpg"
-          className="rounded-full"
-          style={{ height: 40, width: 40 }}
-          alt=""
-          loading="lazy"
-          />
-        <div className="rounded-md bg-gray-100 p-3">Ello Me name Tosiba , I ma selage tomas wana to pole se ni la alle topani ma . ola mi ha tose eahtsadfsd</div>
-      </div>
-      <div className="absolute bottom-7 w-[96vw] rounded-md p-3 flex items-center gap-3 bg-blue-200">
-        <input
-          type="text"
-          className=" block min-h-[auto] rounded-md text-black px-3 py-[0.5rem] outline-1 outline-blue-400 flex-1"
-          placeholder="Type to Chat ..." />
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-        </svg>
-        </button>
-      </div>
+    <div className="flex justify-center items-center text-center h-[90vh]">
+      {!user?.isSubscribed && moment(user.createdAt).add(30,"d").format("DD-MM-YY") === moment().format("DD-MM-YY") ? 
 
+      <div className="flex justify-center items-center flex-col">
+        <img src="./no_payment.webp" alt="no" height={100} width={100}/>
+        <p className="mb-3">Credits Expired</p>
+       <div> Please <button className="btn-sm rounded-lg  bg-[#5038ff] hover:bg-[#382b98] text-white">Subscribe</button> to continue</div>
+      </div>
+      : (
+        <>
+      <iframe
+        data-retune-chat="11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"
+        className='w-[100vw] h-[90vh]'
+      ></iframe>
+      <script
+        id="retune.so/frame"
+        src="https://retune.so/api/script/chat.js?iframe&id=11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"
+        async
+      ></script>
+        </>
+
+      )}
+   
     </div>
   )
 }

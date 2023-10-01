@@ -10,8 +10,6 @@ export async function POST(request){
 
     try {
         const {email,password} = await request.json()
-        console.log(email,password)
-
         const user = await User.findOne({email})
         if(!user){
             return NextResponse.json({error: "User doesn't exists",success:false}, {status: 400})
@@ -26,7 +24,7 @@ export async function POST(request){
             email: user.email
         }
 
-        const token = await jwt.sign(tokenData, process.env.JWT_TOKEN_SECRET,{ expiresIn: '1h' })
+        const token = jwt.sign(tokenData, process.env.NEXT_PUBLIC_SECRET,{ expiresIn: '1h' })
 
         let response = NextResponse.json({message : "Login successful",success:true})
         response.cookies.set("token",token , {httpOnly:true})
