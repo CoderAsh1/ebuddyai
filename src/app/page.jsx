@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 
 export default function Home() {
   return (
-    <div className='bg-[#001c55] h-screen'>
+    <div className='h-screen'>
       <header className='text-white absolute top-0 z-50 w-screen'>
         <nav className='w-full card_blur p-5 flex justify-between items-center'>
           <div className='w-fit'>

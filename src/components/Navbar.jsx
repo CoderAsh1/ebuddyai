@@ -37,7 +37,7 @@ async function handleLogout(){
   
 
   return (
-    <div className="navbar bg-base-100 shadow-md">
+    <div className="navbar bg-white shadow-md">
         <div className='w-fit mr-5'>
             <Link href="/"><b>ExamBuddy.AI</b>
             <div className='text-[10px] text-end'>Let's Crack it !</div>
