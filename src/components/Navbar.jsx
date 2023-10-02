@@ -31,13 +31,27 @@ async function handleLogout(){
 }
 
 
+async function loadScript(src){
+
+}
+
+
+async function handlePayment(){
+  const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
+  if(!res){
+    console.log("Payment Failed.")
+  }
+}
+
   useEffect(() => {
     getUser()
   }, [])
   
 
+
+  
   return (
-    <div className="navbar bg-white shadow-md">
+    <div className="navbar bg-blue-100 shadow-md text-black">
         <div className='w-fit mr-5'>
             <Link href="/"><b>ExamBuddy.AI</b>
             <div className='text-[10px] text-end'>Let's Crack it !</div>
@@ -51,7 +65,7 @@ async function handleLogout(){
             Free Credits Expires on {moment(user.createdAt).add(30,"d").format("DD-MM-YY")}
           </button>
           )}
-          <button className="btn bg-[#5038ff] hover:bg-[#382b98] text-white mr-4">
+          <button onClick={handlePayment} className="btn bg-[#5038ff] hover:bg-[#382b98] text-white mr-4">
           Subscribe Now
         </button>
         <div className="dropdown dropdown-end">

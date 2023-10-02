@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <body className={poppins.className}>{children}</body>
+      <body className={`${poppins.className} bg-blue-100}`}>{children}</body>
     {/* <script
       id="retune.so/chat"
       src="https://retune.so/api/script/chat.js?id=11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"

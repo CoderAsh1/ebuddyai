@@ -39,7 +39,7 @@ export default function Login() {
           <div className="form-control w-full ">
             <label className="label">
               <span className="label-text font-bold ">Password</span>
-              <span className="label-text-alt">Top Right label</span>
+              {/* <span className="label-text-alt">Top Right label</span> */}
             </label>
             <input required type="text" placeholder="Type here" className="input input-bordered w-full" 
             onChange={e=>setUser(prev=>({...prev,password:e.target.value}))}/>
