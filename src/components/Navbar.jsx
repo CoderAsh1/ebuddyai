@@ -51,27 +51,29 @@ async function handlePayment(){
 
   
   return (
-    <div className="navbar bg-blue-100 shadow-md text-black">
-        <div className='w-fit mr-5'>
+    <div className="md:navbar p-2 bg-blue-100 shadow-md text-black">
+        <div className='md:w-fit mr-5'>
             <Link href="/"><b>ExamBuddy.AI</b>
-            <div className='text-[10px] text-end'>Let's Crack it !</div>
+            <div className='text-[10px] md:text-end'>Let's Crack it !</div>
             </Link>
         </div>
-      <div>Welcome, <span className='ms-2 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span></div>
-      <div className="navbar-end ml-auto">
+      <div className='md:text-lg text-sm'>Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span> <span className='md:hidden font-bold'> (Free Plan)</span></div>
+      <div className="md:navbar-end ml-auto gap-2">
         
         {!user?.isSubscribed &&(
-          <button className=" mr-4">
+          <>
+          <button className='hidden md:block'>
             Free Credits Expires on {moment(user.createdAt).add(30,"d").format("DD-MM-YY")}
           </button>
-          )}
-          <button onClick={handlePayment} className="btn bg-[#5038ff] hover:bg-[#382b98] text-white mr-4">
+          <button onClick={handlePayment} className="btn text-white bg-[#190978] hover:bg-[#211a47] mr-4 hidden md:block">
           Subscribe Now
         </button>
-        <div className="dropdown dropdown-end">
+          </>
+         )}
+        <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="https://th.bing.com/th/id/OIP.1nWRQ7r_1nEVJ6sdz_zwkwHaE8?pid=ImgDet&rs=1" />
+              <img src="./user.png" />
             </div>
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

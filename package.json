@@ -26,7 +26,6 @@
     "react-hot-toast": "^2.4.1",
     "react-parallax-tilt": "^1.7.169",
     "supports-color": "^8.1.1",
-    "sweetalert2": "^6.6.1",
     "tailwindcss": "3.3.3"
   },
   "devDependencies": {

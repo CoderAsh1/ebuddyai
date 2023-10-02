@@ -1,13 +1,16 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Tilt from "react-parallax-tilt";
 
+
 export default function page() {
     const router = useRouter()
+
     async function updateUserInfo(companion){
+      let conf = confirm("Are you Sure ? You won't be able to change this later !")
+      if(conf){
         try {
            let user = await axios.get("/api/user")
            if(user.data.user.hasCompanion){
@@ -24,17 +27,20 @@ export default function page() {
             toast.error("Soemthing Went Wrong!")
             console.log(error)
         }
+      }
+        
     }
   return (
-    <div className="w-screen h-screen card_bg text-center text-white max-h-full">
+    <div className="w-screen h-full card_bg text-center text-white max-h-full">
       <h1 className="p-7 font-bold">Hi , Welcome to Exam Buddy !</h1>
       <h3>Choose your Area of Interest</h3>
-      <div className="flex justify-between p-20 flex-wrap gap-10">
+      <div className="md:flex md:justify-between md:p-20  gap-10 items-center w-full">
         <Tilt>
-          <div className="card w-80 text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("SSC")}>
-            <figure>
+          <div className="card max-w-[300px] h-96 mx-auto my-6 text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("SSC")}>
+            <figure className="h-72">
               <img
-                src="https://th.bing.com/th/id/OIP.MFYqGPYOJTpFVE_A52C1-wHaGo?pid=ImgDet&rs=1"
+                style={{height:'100%'}}
+                src="SSC.jpg"
                 alt="ssc"
               />
             </figure>
@@ -48,10 +54,11 @@ export default function page() {
         </Tilt>
 
         <Tilt>
-          <div className="card w-80 text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("NEET")}>
-            <figure>
+          <div className="card max-w-[300px] h-96 mx-auto text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("NEET")}>
+            <figure className="h-72">
               <img
-                src="https://th.bing.com/th/id/OIP.MFYqGPYOJTpFVE_A52C1-wHaGo?pid=ImgDet&rs=1"
+                style={{height:'100%'}}
+                src="./NEET.jpg"
                 alt="ssc"
               />
             </figure>
@@ -64,10 +71,11 @@ export default function page() {
         </Tilt>
 
         <Tilt>
-          <div className="card w-80 text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("JEE")}>
-            <figure>
+          <div className="card max-w-[300px] h-96  mx-auto text-black bg-base-100 shadow-xl my-6 bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("JEE")}>
+            <figure className="h-72">
               <img
-                src="https://th.bing.com/th/id/OIP.MFYqGPYOJTpFVE_A52C1-wHaGo?pid=ImgDet&rs=1"
+              style={{height:'100%'}}
+                src="JEE.jpg"
                 alt="ssc"
               />
             </figure>

@@ -25,8 +25,8 @@ export default function Login() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg">
-      <div className="card_blur p-10  lg:w-[30vw] min-w-[400px]">
+    <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
+      <div className="card_blur md:p-10 px-5 py-7  lg:w-[30vw] min-w-[300px]">
         <div className="text-center font-bold text-xl ">ExamBuddyAI</div>
         <form onSubmit={handleLogin}>
           <div className="form-control w-full">
