@@ -41,7 +41,7 @@ async function handleLogout(){
             <div className='text-[10px] md:text-end'>Let's Crack it !</div>
             </Link>
         </div>
-      <div className='md:text-lg text-sm'>Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span> <span className='md:hidden font-bold'> (Free Plan)</span></div>
+      <div className='md:text-lg text-xs'>Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span> {user.isSubscribed ? `(Plan Expires on ${moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY")})` :<span className='md:hidden font-bold'> (Free Plan)</span>}</div>
       <div className="md:navbar-end ml-auto gap-2">
         
         {!user?.isSubscribed &&(

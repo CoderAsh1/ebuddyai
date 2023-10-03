@@ -7,7 +7,7 @@ import { useEffect, useState } from "react"
 
 export default function page() {
 
-  const [user,setUser] = useState([])
+  const [user,setUser] = useState({})
   const [loader,setLoader] = useState(true)
 
 async function getUser(){
@@ -26,8 +26,9 @@ async function getUser(){
   
   return (
     <div className="flex justify-center items-center text-center h-[90vh]">
-      {!user?.isSubscribed && moment(user.createdAt).add(30,"d").format("DD-MM-YY") === moment().format("DD-MM-YY") ? 
-
+      {(!user?.isSubscribed && moment(user.createdAt).add(30,"d").format("DD-MM-YY") === moment().format("DD-MM-YY")) ||  
+      moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY") === moment().format("DD-MM-YY")
+      ? 
       <div className="flex justify-center items-center flex-col">
         <img src="./no_payment.webp" alt="no" height={100} width={100}/>
         <p className="mb-3">Credits Expired</p>
