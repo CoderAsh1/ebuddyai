@@ -38,10 +38,6 @@ const userSchema = new mongoose.Schema({
         type : String,
         enum :["SSC", "JEE","NEET"],
     },
-    freeCredits : {
-        type : Number,
-        default : 10
-    },
     createdAt :{
         type : Date,
         default : new Date()

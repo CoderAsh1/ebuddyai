@@ -117,7 +117,7 @@ async function displayRazorpay(total) {
           <div className='flex gap-7'>
           </div>
           {loading ?  <span className="loading loading-dots loading-sm "></span> :  <>
-          {user ? <h4>Welcome, {user?.username}</h4> :  <Link href="/login">
+          {user ? <div className='flex gap-2 items-center'> <h4>Welcome, {user?.username}</h4> <button onClick={()=>router.push('/chat')} className='btn btn-sm'><img src='./chat.svg' height={20} width={20}/></button> </div>:  <Link href="/login">
             <button className='p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
           </Link>}
           </>}
