@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 import Script from 'next/script'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import moment from 'moment'
 
 export default function Home() {
   const router = useRouter()
@@ -77,9 +78,10 @@ async function displayRazorpay(total) {
               razorpaySignature: response.razorpay_signature,
           };
 
-          const result = await axios.post("api/payment/success", data);
-
-          alert(result.data.msg);
+          await axios.post("api/payment/success", data);
+          await axios.put("/api/user",{isSubscribed : true,subscriptionExpireOn : moment().add(30,"d").toISOString()})
+          toast.success("Payment Successful.") 
+          router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
       },
       prefill: {
           name: user.username,
@@ -97,6 +99,7 @@ async function displayRazorpay(total) {
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
   } catch (error) {
+      toast.error("Payment Failed. Retry Payment !") 
       console.log(error)
     }finally{setLoading(false)}
 }

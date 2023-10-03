@@ -30,25 +30,9 @@ async function handleLogout(){
   }
 }
 
-
-async function loadScript(src){
-
-}
-
-
-async function handlePayment(){
-  const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
-  if(!res){
-    console.log("Payment Failed.")
-  }
-}
-
   useEffect(() => {
     getUser()
   }, [])
-  
-
-
   
   return (
     <div className="md:navbar p-2 bg-blue-100 shadow-md text-black">
@@ -65,7 +49,7 @@ async function handlePayment(){
           <button className='hidden md:block'>
             Free Credits Expires on {moment(user.createdAt).add(30,"d").format("DD-MM-YY")}
           </button>
-          <button onClick={handlePayment} className="btn text-white bg-[#190978] hover:bg-[#211a47] mr-4 hidden md:block">
+          <button onClick={()=>router.push("/")} className="btn text-white bg-[#190978] hover:bg-[#211a47] mr-4 hidden md:block">
           Subscribe Now
         </button>
           </>
