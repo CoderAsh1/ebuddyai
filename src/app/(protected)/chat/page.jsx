@@ -37,12 +37,12 @@ async function getUser(){
       : (
         <div className="bg-blue-100 ">
       <iframe
-        data-retune-chat="11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"
+        data-retune-chat={process.env.RETUNE_ID}
         className='w-[100vw] h-[90vh]'
       ></iframe>
       <script
         id="retune.so/frame"
-        src="https://retune.so/api/script/chat.js?iframe&id=11ee5901-8d11-3aa0-a0a9-93cb98df2a4d"
+        src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.RETUNE_ID}`}
         async
       ></script>
         </div>

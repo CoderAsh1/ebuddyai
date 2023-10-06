@@ -41,7 +41,11 @@ async function handleLogout(){
             <div className='text-[10px] md:text-end'>Let's Crack it !</div>
             </Link>
         </div>
-      <div className='md:text-lg text-xs'>Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span> {user.isSubscribed ? `(Plan Expires on ${moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY")})` :<span className='md:hidden font-bold'> (Free Plan)</span>}</div>
+      <div className='md:text-lg'><span className='text-[13px]'>
+        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span> {user.isSubscribed ? `(Plan Expires on ${moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY")})` :<span className='md:hidden font-bold'> (Free Plan)</span>}
+      </span>
+        </div>
+
       <div className="md:navbar-end ml-auto gap-2">
         
         {!user?.isSubscribed &&(
@@ -54,6 +58,7 @@ async function handleLogout(){
         </button>
           </>
          )}
+         <button onClick={()=>window.location.reload()} title='Click if chat does not appear'><img src='./reload.png'/></button>
         <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">

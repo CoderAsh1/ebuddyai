@@ -4,11 +4,11 @@ import { getDataFromToken } from "@/helper/getDataFromToken";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 
-connect();
 
 export async function GET(request){
-
+    
     try {
+        await connect();
         const userId = await getDataFromToken(request);
         const user = await User.findById(userId)
         return NextResponse.json({
