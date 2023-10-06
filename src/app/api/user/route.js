@@ -13,7 +13,7 @@ export async function GET(request){
         const user = await User.findById(userId)
         return NextResponse.json({
             mesaaage: "User found",
-            user: user
+            user: user,
         })
     } catch (error) {
         return NextResponse.json({error: error.message}, {status: 400});

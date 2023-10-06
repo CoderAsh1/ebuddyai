@@ -43,10 +43,10 @@ const userSchema = new mongoose.Schema({
         default : new Date()
 
     },
-    forgotPasswordToken: String,
-    forgotPasswordTokenExpiry: Date,
-    verifyToken: String,
-    verifyTokenExpiry: Date,
+    forgotPasswordToken: Number,
+    forgotPasswordTokenExpiry: Number,
+    verifyToken: Number,
+    verifyTokenExpiry: Number,
 })
 
 const User = mongoose.models.users || mongoose.model("users", userSchema);
