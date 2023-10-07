@@ -26,7 +26,7 @@ async function getUser(){
   
   return (
     <div className="flex justify-center items-center text-center h-[90vh]">
-      {(!user?.isSubscribed && user.freeTill  === moment().unix() || user.subscriptionExpiresOn == moment().unix()
+      {(!user?.isSubscribed && user.freeTill  === moment().unix() || user.subscriptionExpiresOn == moment().unix())
       ? 
       <div className="flex justify-center items-center flex-col">
         <img src="./no_payment.webp" alt="no" height={100} width={100}/>
