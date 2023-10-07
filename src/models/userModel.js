@@ -1,9 +1,10 @@
+import moment from "moment";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
-        required: [true, "Please provide a username"],
+        required: [true, "Please provide a name"],
         unique: true,
     },
     email: {
@@ -19,7 +20,7 @@ const userSchema = new mongoose.Schema({
         type : Boolean,
         default : false
     },
-    subscriptionExpireOn : {
+    subscriptionExpiresOn : {
         type : Date
     },
     isVerfied: {
@@ -38,11 +39,15 @@ const userSchema = new mongoose.Schema({
         type : String,
         enum :["SSC", "JEE","NEET"],
     },
-    createdAt :{
-        type : Date,
-        default : new Date()
-
+    freeTill :{
+        type : Number,
+        default : moment().add(10,"d").unix(),
     },
+    referralCode:{
+        type : String,
+        default : generateReferralCode()
+    },
+    refferedTo:[String],
     forgotPasswordToken: Number,
     forgotPasswordTokenExpiry: Number,
     verifyToken: Number,

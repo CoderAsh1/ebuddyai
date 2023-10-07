@@ -26,8 +26,7 @@ async function getUser(){
   
   return (
     <div className="flex justify-center items-center text-center h-[90vh]">
-      {(!user?.isSubscribed && moment(user.createdAt).add(30,"d").format("DD-MM-YY") === moment().format("DD-MM-YY")) ||  
-      moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY") === moment().format("DD-MM-YY")
+      {(!user?.isSubscribed && user.freeTill  === moment().unix() || user.subscriptionExpiresOn == moment().unix()
       ? 
       <div className="flex justify-center items-center flex-col">
         <img src="./no_payment.webp" alt="no" height={100} width={100}/>

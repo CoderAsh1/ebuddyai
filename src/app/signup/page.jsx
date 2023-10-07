@@ -8,7 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Login() {
   const router = useRouter()
-  const [user,setUser] = useState({username : "",email:"",password:"",})
+  const [user,setUser] = useState({name : "",email:"",password:"",})
   const [loading,setLoading] = useState(false)
 
   async function handleLogin(e){
@@ -33,7 +33,7 @@ export default function Login() {
               <span className="label-text font-bold text-md ">Name</span>
             </label>
             <input required autoFocus type="text" placeholder="Type here" className="input input-bordered w-full " 
-            onChange={e=>setUser(prev=>({...prev,username:e.target.value}))}/>
+            onChange={e=>setUser(prev=>({...prev,name:e.target.value}))}/>
           </div>
           <div className="form-control w-full">
             <label className="label">

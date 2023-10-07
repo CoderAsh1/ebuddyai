@@ -84,7 +84,7 @@ export default function Home() {
             router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
         },
         prefill: {
-            name: user.username,
+            name: user.name,
             email: user.email,
             contact: "9999999999",
         },
@@ -107,7 +107,7 @@ export default function Home() {
   async function createSubscription(){
     try {
       setLoading(true)
-      const result = await axios.post("/api/create_subscription",{email : user.email,name:user.username})
+      const result = await axios.post("/api/create_subscription",{email : user.email,name:user.name})
       let url = result.data.data.short_url
       var options = {
         key: process.env.RAZORPAY_KEY_ID,
@@ -118,7 +118,7 @@ export default function Home() {
           alert(response.razorpay_payment_id);
         },
         prefill: {
-          name: user.username,
+          name: user.name,
           email: user.email,
           contact: "9999999999",
       },
@@ -146,7 +146,7 @@ export default function Home() {
           <div className='flex gap-7'>
           </div>
           {loading ?  <span className="loading loading-dots loading-sm "></span> :  <>
-          {user ? <div className='flex gap-2 items-center'> <h4>Welcome, {user?.username}</h4> <button onClick={()=>router.push('/chat')} className='btn btn-sm'><img src='./chat.svg' height={20} width={20}/></button> </div>:  <Link href="/login">
+          {user ? <div className='flex gap-2 items-center'> <h4>Welcome, {user?.name}</h4> <button onClick={()=>router.push('/chat')} className='btn btn-sm'><img src='./chat.svg' height={20} width={20}/></button> </div>:  <Link href="/login">
             <button className='p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
           </Link>}
           </>}

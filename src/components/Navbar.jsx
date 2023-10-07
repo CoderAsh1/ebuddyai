@@ -42,7 +42,7 @@ async function handleLogout(){
             </Link>
         </div>
       <div className='md:text-lg'><span className='text-[13px]'>
-        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.username}</span> {user.isSubscribed ? `(Plan Expires on ${moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY")})` :<span className='md:hidden font-bold'> (Free Plan)</span>}
+        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {user.isSubscribed ? `(Plan Expires on ${moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY")})` :<span className='md:hidden font-bold'> (Free Plan)</span>}
       </span>
         </div>
 
