@@ -41,68 +41,97 @@ export default function Home() {
     });
   }
 
-async function displayRazorpay(total) {
-  try {
-    setLoading(true)
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
+  async function displayRazorpay(total) {
+    try {
+      setLoading(true)
+      const res = await loadScript(
+        "https://checkout.razorpay.com/v1/checkout.js"
+      );
 
-    if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
-      return;
-    }
+      if (!res) {
+        alert("Razorpay SDK failed to load. Are you online?");
+        return;
+      }
 
-    const result = await axios.post("/api/payment/order",{amount : total})
+      const result = await axios.post("/api/payment/order",{amount : total})
 
-    if (!result) {
-      alert("Server error. Are you online?");
-      return;
-    }
+      if (!result) {
+        alert("Server error. Are you online?");
+        return;
+      }
 
-    const { amount, id: order_id, currency } = result.data;
+      const { amount, id: order_id, currency } = result.data;
 
-    const options = {
-      key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
-      amount: amount.toString(),
-      currency: currency,
-      name: "ExamBuddy AI.",
-      description: "Test Transaction",
-      // image: { logo },
-      order_id: order_id,
-      handler: async function (response) {
-          const data = {
-              orderCreationId: order_id,
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpayOrderId: response.razorpay_order_id,
-              razorpaySignature: response.razorpay_signature,
-          };
+      const options = {
+        key: process.env.RAZORPAY_KEY_ID, 
+        amount: amount.toString(),
+        currency: currency,
+        name: "Supreme Plan",
+        description: "Onetime fee",
+        // image: { logo },
+        order_id: order_id,
+        handler: async function (response) {
+            const data = {
+                orderCreationId: order_id,
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature,
+            };
 
-          await axios.post("api/payment/success", data);
-          await axios.put("/api/user",{isSubscribed : true,subscriptionExpireOn : moment().add(30,"d").toISOString()})
-          toast.success("Payment Successful.") 
-          router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
-      },
-      prefill: {
+            await axios.post("api/payment/success", data);
+            await axios.put("/api/user",{isSubscribed : true,subscriptionExpireOn : moment().add(30,"d").toISOString()})
+            toast.success("Payment Successful.") 
+            router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
+        },
+        prefill: {
+            name: user.username,
+            email: user.email,
+            contact: "9999999999",
+        },
+        notes: {
+            address: "Rourkela",
+        },
+        theme: {
+            color: "#61dafb",
+        },
+      };
+
+          const paymentObject = new window.Razorpay(options);
+          paymentObject.open();
+    } catch (error) {
+        toast.error("Payment Failed. Retry Payment !") 
+        console.log(error)
+      }finally{setLoading(false)}
+  }
+
+  async function createSubscription(){
+    try {
+      setLoading(true)
+      const result = await axios.post("/api/create_subscription",{email : user.email,name:user.username})
+      let url = result.data.data.short_url
+      var options = {
+        key: process.env.RAZORPAY_KEY_ID,
+        subscription_id: result.data.data.id,
+        name: "Premium Plan",
+        description: "Recurring payment",
+        handler: function (response){
+          alert(response.razorpay_payment_id);
+        },
+        prefill: {
           name: user.username,
           email: user.email,
           contact: "9999999999",
       },
-      notes: {
-          address: "Rourkela",
-      },
-      theme: {
-          color: "#61dafb",
-      },
-    };
+      };
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
-  } catch (error) {
-      toast.error("Payment Failed. Retry Payment !") 
-      console.log(error)
-    }finally{setLoading(false)}
-}
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+      
+    } catch (error) {
+      console.log(error.message)
+    }finally {setLoading(false)}
+    
+  }
 
   return (
     <div className='h-full p-5 bg-blue-100 card_bg'>
@@ -145,7 +174,7 @@ async function displayRazorpay(total) {
           <p>You will be able to access the companion 30 days for free from the data of Joining </p>
           <div><span className='font-bold text-xl'>&#8377; 600</span>/month</div>
           <p>&#x2714; 24/7 Customer Support</p>
-          <button onClick={()=> user ? displayRazorpay(60000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=> user ? createSubscription() : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
         <div className="rounded-xl p-6 bg-white phone-1 max-w-sm flex flex-col gap-4">
@@ -156,7 +185,7 @@ async function displayRazorpay(total) {
           <p>&#x2714; 24/7 Customer Support</p>
           <p>&#x2714; LifeTime Access</p>
           <p>&#x2714; Custom ChatBot With Own Data</p>
-          <button onClick={()=>user ? displayRazorpay(1000000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=>user ? displayRazorpay(1000000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
       </div>
