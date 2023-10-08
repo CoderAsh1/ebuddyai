@@ -13,7 +13,7 @@ export async function PUT(request){
         let user = await User.findOne({email})
         let code =  generateRandomSixDigitNumber()
 
-        await sendEmail({email, emailType: type,code})
+        await sendEmail({email, emailType: type,code , userId : user._id})
         if(type === "RESET"){
             await  User.updateOne(user,{forgotPasswordToken :code,forgotPasswordTokenExpiry : moment().add(10,"m").unix()})
         }else {

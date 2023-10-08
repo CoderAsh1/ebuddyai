@@ -1,16 +1,16 @@
 "use client"
 import axios from "axios";
 import moment from "moment";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
-export default function Login() {
+export default function VerifyEmail({searchParams}) {
   const router = useRouter()
+  const {id , token} = searchParams
   const [loading,setLoading] = useState(false)
-  const [code,setCode] = useState("")
+  const [code,setCode] = useState(token || "")
   const [user,setUser] = useState({})
 
   async function handleVerify(e){
@@ -28,9 +28,9 @@ export default function Login() {
         return;
       }
 
-      await axios.put("/api/user",{isVerified: true,verifyToken:null,verifyTokenExpiry:null})
+      await axios.put("/api/fetch_user",{isVerified: true,id:id})
       toast.success("Email verified.")
-      router.push(user?.data?.user?.hasCompanion ? "/chat" : "/choose_companion")
+      router.push("/")
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.error);
@@ -49,7 +49,7 @@ export default function Login() {
 
   async function getUser(){
     try {
-      let user = await axios.get("/api/user")
+      let user = await axios.post("/api/fetch_user",{field : "_id", value : id})
       setUser(user.data.user)
     } catch (error) {
         console.log(error)

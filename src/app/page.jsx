@@ -7,6 +7,7 @@ import Script from 'next/script'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import moment from 'moment'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const router = useRouter()
@@ -148,7 +149,7 @@ export default function Home() {
           </div>
           {loading ?  <span className="loading loading-dots loading-sm "></span> :  <>
           {user ? <div className='flex gap-2 items-center'> <h4>Welcome, {user?.name}</h4> <button onClick={()=>router.push('/chat')} className='btn btn-sm'><img src='./chat.svg' height={20} width={20}/></button> </div>:  <Link href="/login">
-            <button className='p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
+            <button className='p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
           </Link>}
           </>}
          
@@ -167,7 +168,7 @@ export default function Home() {
           <p>You will be able to access the companion.</p>
           <div><span className='font-bold text-xl'>&#8377; 0</span>/month</div>
           <p>&#x2714; Free</p>
-          <Link href="/login" className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>Chat Now
+          <Link href="/login" className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>Chat Now
           </Link>
         </div>
         <div className="rounded-xl p-6 bg-white phone-1 max-w-sm flex flex-col gap-4">
@@ -175,7 +176,7 @@ export default function Home() {
           <p>You will be able to access the companion 30 days for free from the data of Joining </p>
           <div><span className='font-bold text-xl'>&#8377; 600</span>/month</div>
           <p>&#x2714; 24/7 Customer Support</p>
-          <button disabled={loading} onClick={()=> user ? createSubscription() : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=> user ? createSubscription() : router.push("/login")} className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
         <div className="rounded-xl p-6 bg-white phone-1 max-w-sm flex flex-col gap-4">
@@ -186,7 +187,7 @@ export default function Home() {
           <p>&#x2714; 24/7 Customer Support</p>
           <p>&#x2714; LifeTime Access</p>
           <p>&#x2714; Custom ChatBot With Own Data</p>
-          <button disabled={loading} onClick={()=>user ? displayRazorpay(1000000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=>user ? displayRazorpay(1000000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
       </div>
