@@ -1,3 +1,4 @@
+import { generateReferralCode } from "@/helper/generateReferralCode";
 import moment from "moment";
 import mongoose from "mongoose";
 
@@ -15,6 +16,10 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, "Please provide a password"],
+    },
+    phone:{
+        type: String,
+        required: [true, "Please provide a phone number"],
     },
     isSubscribed : {
         type : Boolean,
@@ -43,10 +48,7 @@ const userSchema = new mongoose.Schema({
         type : Number,
         default : moment().add(10,"d").unix(),
     },
-    referralCode:{
-        type : String,
-        default : generateReferralCode()
-    },
+    referralCode: String,
     refferedTo:[String],
     forgotPasswordToken: Number,
     forgotPasswordTokenExpiry: Number,
@@ -54,6 +56,6 @@ const userSchema = new mongoose.Schema({
     verifyTokenExpiry: Number,
 })
 
-const User = mongoose.models.users || mongoose.model("users", userSchema);
+const User = mongoose?.models?.users || mongoose.model("users", userSchema);
 
 export default User;

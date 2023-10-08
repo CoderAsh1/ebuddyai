@@ -17,6 +17,11 @@ export default function Login() {
       setLoading(true)
       await axios.post("/api/login",user)
       let userInfo = await axios.get("/api/user")
+      if(!userInfo.isVerfied){
+        await axios.put('/api/send_code',{email :user.email,type:"VERIFY"})
+        toast.success("Code has been sent to your email.")
+        return router.push("/verifyemail")
+      }
       router.push(userInfo?.data?.user?.hasCompanion ? "/chat" : "/choose_companion")
     } catch (error) {
       console.log(error)

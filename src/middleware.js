@@ -8,10 +8,6 @@ export async function middleware(request) {
 
   const token = request.cookies.get('token')?.value || ''
 
-  if(isPublicPath && token) {
-    return NextResponse.redirect(new URL('/', request.nextUrl))
-  }
-
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL('/login', request.nextUrl))
   }
@@ -22,9 +18,9 @@ export async function middleware(request) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    // '/chat',
-    // '/login',
-    // '/signup',
-    // '/verifyemail',
+    '/chat',
+    '/login',
+    '/signup',
+    '/verifyemail',
   ]
 }
