@@ -6,21 +6,20 @@ import moment from "moment";
 import { NextResponse } from "next/server";
 
 export async function PUT(request){
-
-    
     try {
         await connect()
         const reqBody = await request.json()
-        const { email} = reqBody
+        const { email,type} = reqBody
         let user = await User.findOne({email})
         let code =  generateRandomSixDigitNumber()
 
-        await sendEmail({email, emailType: "RESET",code})
-
-        await  User.updateOne(user,{forgotPasswordToken :code,forgotPasswordTokenExpiry : moment().add(10,"m").unix()})
+        await sendEmail({email, emailType: type,code})
+        if(type === "RESET"){
+            await  User.updateOne(user,{forgotPasswordToken :code,forgotPasswordTokenExpiry : moment().add(10,"m").unix()})
+        }else {
+            await  User.updateOne(user,{verifyToken :code,verifyTokenExpiry : moment().add(10,"m").unix()})
+        }
         user = await User.findOne({email})
-
-
         return NextResponse.json(user)
 
         
