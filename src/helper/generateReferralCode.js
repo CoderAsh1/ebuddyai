@@ -1,8 +1,5 @@
-import { connect } from "@/dbConfig/dbConfig";
-import User from "@/models/userModel";
 
 export async function generateReferralCode() {
-    await connect()
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let referralCode = '';
   
@@ -10,11 +7,5 @@ export async function generateReferralCode() {
       const randomIndex = Math.floor(Math.random() * characters.length);
       referralCode += characters.charAt(randomIndex);
     }
-
-    let user = User.findOne({referralCode})
-
-    if(!user){
-        return referralCode.toUpperCase();
-    }
-    generateReferralCode()
+        return referralCode.toString().toUpperCase();
   }

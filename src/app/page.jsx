@@ -19,6 +19,7 @@ export default function Home() {
         let user = await axios.get("/api/user")
         setUser(user.data.user)
       } catch (error) {
+        await axios.get("/api/logout")
         console.log(error)
       }finally{setLoading(false)}
     }

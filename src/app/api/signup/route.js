@@ -1,42 +1,39 @@
 
-import User from "@/models/userModel";
-import { NextRequest, NextResponse } from "next/server";
-import bcryptjs from "bcryptjs";
-// import { sendEmail } from "@/helpers/mailer";
 import { connect } from "@/dbConfig/dbConfig";
+import { sendEmail } from "@/helper/sendMail";
+import User from "@/models/userModel";
+import bcryptjs from "bcryptjs";
+import { NextResponse } from "next/server";
 
 
 export async function POST(request){
     try {
         await connect()
         const reqBody = await request.json()
-        const {name, email, password} = reqBody
+        const {name, email, password ,referralCode,phone} = reqBody
 
-        console.log(reqBody);
-
-        //check if user already exists
-        const user = await User.findOne({email})
+        const user = await User.findOne({
+            $or: [
+              { email: email },
+              { phone: phone }
+            ]
+          });
 
         if(user){
-            return NextResponse.json({error: "User already exists",success:false}, {status: 400})
+            return NextResponse.json({error: "User already exists !",success:false}, {status: 400})
         }
 
-        //hash password
         const salt = await bcryptjs.genSalt(10)
         const hashedPassword = await bcryptjs.hash(password, salt)
 
         const newUser = new User({
             name,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            referralCode,
+            phone,
         })
-
         const savedUser = await newUser.save()
-        console.log(savedUser);
-
-        //send verification email
-
-        // await sendEmail({email, emailType: "VERIFY", userId: savedUser._id})
 
         return NextResponse.json({
             message: "User created successfully",

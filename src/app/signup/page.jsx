@@ -1,4 +1,5 @@
 "use client"
+import { generateReferralCode } from "@/helper/generateReferralCode";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,20 +9,38 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Login() {
   const router = useRouter()
-  const [user,setUser] = useState({name : "",email:"",password:"",})
+  const [user,setUser] = useState({name : "",email:"",password:"",referralCode : "",phone:"+91"})
   const [loading,setLoading] = useState(false)
+
 
   async function handleLogin(e){
     e.preventDefault()
     try {
       setLoading(true)
-      await axios.post("/api/signup",user)
-      toast.success("User created Successfully.")
+      const indianPhoneNumberRegex =  /^(\+91|0)?[6-9]\d{9}$/;
+
+      const phoneNumber = user.phone;
+      if (!indianPhoneNumberRegex.test(phoneNumber)) {
+        toast.error("Invalid phone number!");
+        return
+      }
+
+      let temp = structuredClone(user)
+      let code = await referralCode()
+      temp.referralCode = code
+      await axios.post("/api/signup",temp)
+      toast.success("User created successfully.")
       router.push("/login")
     } catch (error) {
-      toast.error(error.response.data.error);
+      console.log(error)
+      toast.error(error.response?.data?.error);
     }finally {setLoading(false)}
   }
+
+  async function referralCode(){
+    let res= generateReferralCode()
+    return res;
+   }
 
   return (
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
@@ -49,8 +68,15 @@ export default function Login() {
             <input required type="text" placeholder="Type here" className="input input-bordered w-full" 
             onChange={e=>setUser(prev=>({...prev,password:e.target.value}))}/>
           </div>
+          <div className="form-control w-full ">
+            <label className="label">
+              <span className="label-text font-bold text-md ">Phone Number</span>
+            </label>
+            <input required type="tel" maxLength={13} placeholder="Type here" className="input input-bordered w-full"  value={user.phone}
+            onChange={e=>setUser(prev=>({...prev,phone:e.target.value.length > 2 && +e.target.value ? e.target.value  : "+91"}))}/>
+          </div>
           {loading ? <button className="btn w-full mt-4 bg-grad bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 ">
-            <span className="loading loading-spinner"></span>
+            <span className="text-white loading loading-spinner"></span>
           </button> :    
           <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600  hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600 text-white">Signup</button> }
             <div className="text-center mt-5 text-sm text-slate-700">Already have an Account ?</div>
