@@ -60,10 +60,19 @@ background-blend-mode: overlay, overlay, overlay, darken, normal;
 }
 .choose{
   background: url('/bg.svg');
+  background-repeat: no-repeat;
 }
 .card_bg{
   background: url('/card-bg.svg');
-
+  background-repeat: no-repeat;
+}
+.bottom_bg{
+  background: url('/footer-bg.svg');
+  background-repeat: no-repeat;
+}
+.policy_bg{
+  background: url('/policy-bg.svg');
+  background-size: cover;
 }
 div[data-rf="stack-y"]{
   display: none !important;

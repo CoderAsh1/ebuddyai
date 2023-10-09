@@ -1,4 +1,4 @@
-import './globals.css'
+import './globals.css';
 
 import { Poppins } from "next/font/google";
 
@@ -12,7 +12,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <body className={`${poppins.className} bg-blue-100}`}>{children}</body>
+      <body className={`${poppins.className} bg-blue-100}`}>{children}
+      </body>
       <script
         id="retune.so/frame"
         src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.RETUNE_ID}`}

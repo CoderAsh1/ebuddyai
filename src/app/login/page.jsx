@@ -2,7 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
@@ -17,7 +17,7 @@ export default function Login() {
       setLoading(true)
       await axios.post("/api/login",user)
       let userInfo = await axios.get("/api/user")
-      if(!userInfo.isVerfied){
+      if(!userInfo?.data?.user?.isVerified){
         await axios.put('/api/send_code',{email :user.email,type:"VERIFY"})
         toast.success("Code has been sent to your email.")
         return router.push("/verifyemail")
@@ -30,8 +30,19 @@ export default function Login() {
   }
 
   async function sendCode(){
-    let data = await axios.put('/api/forget_password_code',{email: "ashutoshsasmal1@outlook.com"})
-    console.log(data)
+    try {
+    if(!user.email) return toast.error("Please enter email !")
+
+    let userData = await axios.post('/api/fetch_user',{field : "email", value : user.email})
+    if(!userData?.data?.user) return toast.error("User not found !")
+
+    await axios.put('/api/send_code',{email: user.email, type:"RESET"})
+    toast.success("Code has been sent to your email.")
+    } catch (error) {
+        console.log(error)
+        toast.error("Failed to send code.")
+    }
+
   }
 
   return (

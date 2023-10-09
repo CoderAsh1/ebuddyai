@@ -7,6 +7,7 @@ import Script from 'next/script'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import moment from 'moment'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   const router = useRouter()
@@ -115,13 +116,15 @@ export default function Home() {
         subscription_id: result.data.data.id,
         name: "Premium Plan",
         description: "Recurring payment",
-        handler: function (response){
-          alert(response.razorpay_payment_id);
+        handler:async  function (response){
+          await axios.put("/api/user",{isSubscribed : true,subscriptionExpireOn : moment().add(30,"d").toISOString()})
+          toast.success("Payment Successful.") 
+          router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
         },
         prefill: {
           name: user.name,
           email: user.email,
-          contact: "9999999999",
+          contact: user.phone
       },
       };
 
@@ -134,7 +137,17 @@ export default function Home() {
     
   }
 
+  async function handleLogout(){
+    try {
+      await axios.get("/api/logout")
+      router.push("/login")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
+    <>
     <div className='h-full p-5 bg-blue-100 card_bg'>
   <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
       <header className='text-slate-700'>
@@ -147,8 +160,22 @@ export default function Home() {
           <div className='flex gap-7'>
           </div>
           {loading ?  <span className="loading loading-dots loading-sm "></span> :  <>
-          {user ? <div className='flex gap-2 items-center'> <h4>Welcome, {user?.name}</h4> <button onClick={()=>router.push('/chat')} className='btn btn-sm'><img src='./chat.svg' height={20} width={20}/></button> </div>:  <Link href="/login">
-            <button className='p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
+          {user ? 
+          
+          <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src="./user.png" />
+            </div>
+          </label>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li onClick={()=>router.push('/chat')}><a>Chat</a></li>
+            <li onClick={handleLogout}><a>Logout</a></li>
+          </ul>
+        </div>
+          
+          :  <Link href="/login">
+            <button className='p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
           </Link>}
           </>}
          
@@ -167,7 +194,7 @@ export default function Home() {
           <p>You will be able to access the companion.</p>
           <div><span className='font-bold text-xl'>&#8377; 0</span>/month</div>
           <p>&#x2714; Free</p>
-          <Link href="/login" className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>Chat Now
+          <Link href="/login" className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>Chat Now
           </Link>
         </div>
         <div className="rounded-xl p-6 bg-white phone-1 max-w-sm flex flex-col gap-4">
@@ -175,7 +202,7 @@ export default function Home() {
           <p>You will be able to access the companion 30 days for free from the data of Joining </p>
           <div><span className='font-bold text-xl'>&#8377; 600</span>/month</div>
           <p>&#x2714; 24/7 Customer Support</p>
-          <button disabled={loading} onClick={()=> user ? createSubscription() : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=> user ? createSubscription() : router.push("/login")} className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
         <div className="rounded-xl p-6 bg-white phone-1 max-w-sm flex flex-col gap-4">
@@ -186,12 +213,15 @@ export default function Home() {
           <p>&#x2714; 24/7 Customer Support</p>
           <p>&#x2714; LifeTime Access</p>
           <p>&#x2714; Custom ChatBot With Own Data</p>
-          <button disabled={loading} onClick={()=>user ? displayRazorpay(1000000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#331097] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=>user ? displayRazorpay(1000000) : router.push("/login")} className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
       </div>
      <Toaster/>
     </div>
+    <Footer/>
+    </>
+
   )
 }
 

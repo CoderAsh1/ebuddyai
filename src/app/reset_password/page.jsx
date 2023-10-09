@@ -6,17 +6,19 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
-export default function ResetPassword() {
+export default function ResetPassword({searchParams}) {
   const router = useRouter()
-  const [user,setUser] = useState({email:"",password:"",code : ""})
+  const {id ,token} = searchParams
+  const [user,setUser] = useState({email:id || "",password:"",code : token || ""})
   const [loading,setLoading] = useState(false)
 
   async function handleResetPassword(e){
     e.preventDefault()
     try {
       setLoading(true)
-      let data = await axios.put("/api/update_password",user)
-      console.log(data)
+      await axios.put("/api/update_password",user)
+      toast.success("Password updated successfully !")
+      router.push("/login")
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.error);
@@ -33,14 +35,14 @@ export default function ResetPassword() {
             <label className="label">
               <span className="label-text font-bold text-md">Email</span>
             </label>
-            <input required autoFocus type="text" placeholder="Type here" className="input input-bordered w-full " 
+            <input required autoFocus value={user.email} type="text" placeholder="Type here" className="input input-bordered w-full " 
             onChange={e=>setUser(prev=>({...prev,email:e.target.value}))}/>
           </div>
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text font-bold text-md">Code</span>
             </label>
-            <input required autoFocus type="number" placeholder="Type here" className="input input-bordered w-full " 
+            <input required value={user.code} autoFocus type="number" max={999999} min={100000} placeholder="Type here" className="input input-bordered w-full " 
             onChange={e=>setUser(prev=>({...prev,code:+e.target.value}))}/>
           </div>
           <div className="form-control w-full ">

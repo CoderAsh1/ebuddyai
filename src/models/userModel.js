@@ -1,4 +1,3 @@
-import { generateReferralCode } from "@/helper/generateReferralCode";
 import moment from "moment";
 import mongoose from "mongoose";
 
@@ -28,7 +27,7 @@ const userSchema = new mongoose.Schema({
     subscriptionExpiresOn : {
         type : Date
     },
-    isVerfied: {
+    isVerified: {
         type: Boolean,
         default: false,
     },
@@ -50,6 +49,8 @@ const userSchema = new mongoose.Schema({
     },
     referralCode: String,
     refferedTo:[String],
+    refferedBy : String,
+    
     forgotPasswordToken: Number,
     forgotPasswordTokenExpiry: Number,
     verifyToken: Number,
