@@ -14,7 +14,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
       <body className={`${poppins.className} bg-blue-100}`}>{children}
-      <Footer/>
       </body>
       <script
         id="retune.so/frame"

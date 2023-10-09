@@ -28,7 +28,7 @@ export default function VerifyEmail({searchParams}) {
         return;
       }
 
-      await axios.put("/api/fetch_user",{isVerified: true,id:id})
+      await axios.put("/api/user",{isVerified: true})
       toast.success("Email verified.")
       router.push("/")
     } catch (error) {
@@ -49,7 +49,10 @@ export default function VerifyEmail({searchParams}) {
 
   async function getUser(){
     try {
-      let user = await axios.post("/api/fetch_user",{field : "_id", value : id})
+      let user = await axios.get("/api/user")
+      if(user.data.user.isVerified){
+        return router.push('/')
+      }
       setUser(user.data.user)
     } catch (error) {
         console.log(error)

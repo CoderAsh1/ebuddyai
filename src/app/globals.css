@@ -70,6 +70,10 @@ background-blend-mode: overlay, overlay, overlay, darken, normal;
   background: url('/footer-bg.svg');
   background-repeat: no-repeat;
 }
+.policy_bg{
+  background: url('/policy-bg.svg');
+  background-size: cover;
+}
 div[data-rf="stack-y"]{
   display: none !important;
 

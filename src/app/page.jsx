@@ -116,13 +116,15 @@ export default function Home() {
         subscription_id: result.data.data.id,
         name: "Premium Plan",
         description: "Recurring payment",
-        handler: function (response){
-          alert(response.razorpay_payment_id);
+        handler:async  function (response){
+          await axios.put("/api/user",{isSubscribed : true,subscriptionExpireOn : moment().add(30,"d").toISOString()})
+          toast.success("Payment Successful.") 
+          router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
         },
         prefill: {
           name: user.name,
           email: user.email,
-          contact: "9999999999",
+          contact: user.phone
       },
       };
 
@@ -136,6 +138,7 @@ export default function Home() {
   }
 
   return (
+    <>
     <div className='h-full p-5 bg-blue-100 card_bg'>
   <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
       <header className='text-slate-700'>
@@ -193,6 +196,9 @@ export default function Home() {
       </div>
      <Toaster/>
     </div>
+    <Footer/>
+    </>
+
   )
 }
 

@@ -12,7 +12,8 @@ export default function Navbar() {
   const [loader,setLoader] = useState(true)
 
 async function getUser(){
-    try {   
+    try { 
+      setLoader(true)  
     let user = await axios.get("/api/user")
     setUser(user.data.user)
     } catch (error) {
@@ -33,6 +34,8 @@ async function handleLogout(){
   useEffect(() => {
     getUser()
   }, [])
+
+  if(loader) return <span className="loading loading-dots loading-sm m-5 "></span>;
   
   return (
     <div className="md:navbar p-2 bg-blue-100 shadow-md text-black">
@@ -42,7 +45,7 @@ async function handleLogout(){
             </Link>
         </div>
       <div className='md:text-lg'><span className='text-[13px]'>
-        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {user.isSubscribed ? `(Plan Expires on ${moment(user.subscriptionExpireOn).add(30,"d").format("DD-MM-YY")})` :<span className='md:hidden font-bold'> (Free Plan)</span>}
+        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {user.isSubscribed ? `${user?.planName || ""}` :<span className='md:hidden font-bold'> (Free Plan)</span>}
       </span>
         </div>
 

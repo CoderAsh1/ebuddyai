@@ -42,7 +42,7 @@ async function getUser(){
       <script
         id="retune.so/frame"
         src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.RETUNE_ID}`}
-        async
+        defer
       ></script>
         </div>
 
