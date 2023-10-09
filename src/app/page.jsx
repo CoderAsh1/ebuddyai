@@ -137,6 +137,15 @@ export default function Home() {
     
   }
 
+  async function handleLogout(){
+    try {
+      await axios.get("/api/logout")
+      router.push("/login")
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
     <div className='h-full p-5 bg-blue-100 card_bg'>
@@ -151,7 +160,21 @@ export default function Home() {
           <div className='flex gap-7'>
           </div>
           {loading ?  <span className="loading loading-dots loading-sm "></span> :  <>
-          {user ? <div className='flex gap-2 items-center'> <h4>Welcome, {user?.name}</h4> <button onClick={()=>router.push('/chat')} className='btn btn-sm'><img src='./chat.svg' height={20} width={20}/></button> </div>:  <Link href="/login">
+          {user ? 
+          
+          <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src="./user.png" />
+            </div>
+          </label>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li onClick={()=>router.push('/chat')}><a>Chat</a></li>
+            <li onClick={handleLogout}><a>Logout</a></li>
+          </ul>
+        </div>
+          
+          :  <Link href="/login">
             <button className='p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white' >Sign In</button>
           </Link>}
           </>}
