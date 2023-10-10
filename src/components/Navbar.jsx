@@ -45,12 +45,11 @@ async function handleLogout(){
             </Link>
         </div>
       <div className='md:text-lg'><span className='text-[13px]'>
-        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {user.isSubscribed ? `${user?.planName || ""}` :<span className='md:hidden font-bold'> (Free Plan)</span>}
+        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {!user.isSubscribed && <span className='md:hidden font-bold'> (Free Plan)</span>}
       </span>
         </div>
 
       <div className="md:navbar-end ml-auto gap-2">
-        
         {!user?.isSubscribed &&(
           <>
           <button className='hidden md:block'>
@@ -65,11 +64,13 @@ async function handleLogout(){
         <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="./user.png" />
+              <img src={user?.image || "./user.png"} />
             </div>
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             <li onClick={()=>router.push('/')}><a>Home</a></li>
+            <li onClick={()=>router.push('/chat')}><a>Chat</a></li>
+            <li onClick={()=>router.push('/profile')}><a>Profile</a></li>
             <li onClick={handleLogout}><a>Logout</a></li>
           </ul>
         </div>

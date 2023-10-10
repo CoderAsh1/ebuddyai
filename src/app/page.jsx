@@ -106,18 +106,18 @@ export default function Home() {
       }finally{setLoading(false)}
   }
 
-  async function createSubscription(){
+  async function createSubscription(name){
     try {
       setLoading(true)
       const result = await axios.post("/api/create_subscription",{email : user.email,name:user.name})
-      let url = result.data.data.short_url
       var options = {
         key: process.env.RAZORPAY_KEY_ID,
         subscription_id: result.data.data.id,
         name: "Premium Plan",
         description: "Recurring payment",
         handler:async  function (response){
-          await axios.put("/api/user",{isSubscribed : true,subscriptionExpireOn : moment().add(30,"d").toISOString()})
+          await axios.put("/api/user",{isSubscribed : true,subscriptionRenewsOn : moment().add(30,"d").toISOString(),
+          subscriptionName:name,subscriptionId:result.data.data.id})
           toast.success("Payment Successful.") 
           router.push(user?.hasCompanion ?  "/chat" : "/choose_companion")
         },
@@ -165,10 +165,11 @@ export default function Home() {
           <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="./user.png" />
+              <img src={user?.image || "./user.png"} />
             </div>
           </label>
           <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li onClick={()=>router.push('/profile')}><a>Profile</a></li>
             <li onClick={()=>router.push('/chat')}><a>Chat</a></li>
             <li onClick={handleLogout}><a>Logout</a></li>
           </ul>
@@ -202,7 +203,7 @@ export default function Home() {
           <p>You will be able to access the companion 30 days for free from the data of Joining </p>
           <div><span className='font-bold text-xl'>&#8377; 600</span>/month</div>
           <p>&#x2714; 24/7 Customer Support</p>
-          <button disabled={loading} onClick={()=> user ? createSubscription() : router.push("/login")} className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
+          <button disabled={loading} onClick={()=> user ? createSubscription("premium_plan") : router.push("/login")} className='mt-auto p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold text-center'>{loading ?  <span className="loading loading-dots loading-sm "></span> : "Get Plan"} 
           </button>
         </div>
         <div className="rounded-xl p-6 bg-white phone-1 max-w-sm flex flex-col gap-4">

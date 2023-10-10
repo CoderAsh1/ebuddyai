@@ -20,13 +20,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a phone number"],
     },
+    image : String,
+
     isSubscribed : {
         type : Boolean,
         default : false
     },
-    subscriptionExpiresOn : {
-        type : Date
-    },
+    subscriptionId:String,
+    subscriptionName: String,
+    subscriptionRenewsOn :Date,
+
     isVerified: {
         type: Boolean,
         default: false,
@@ -47,6 +50,7 @@ const userSchema = new mongoose.Schema({
         type : Number,
         default : moment().add(10,"d").unix(),
     },
+
     referralCode: String,
     refferedTo:[String],
     refferedBy : String,
