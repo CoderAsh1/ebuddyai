@@ -9,7 +9,7 @@ export async function POST(request){
     try {
         await connect()
         const reqBody = await request.json()
-        const {name, email, password ,referralCode,phone} = reqBody
+        const {name, email, password ,referralCode,phone,refferedBy} = reqBody
 
         const user = await User.findOne({
             $or: [
@@ -31,6 +31,7 @@ export async function POST(request){
             password: hashedPassword,
             referralCode,
             phone,
+            refferedBy
         })
         const savedUser = await newUser.save()
 

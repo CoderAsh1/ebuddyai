@@ -15,6 +15,9 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  scroll-behavior: smooth;
+}
 
 .text-primary{
   color: green !important;
@@ -61,20 +64,44 @@ background-blend-mode: overlay, overlay, overlay, darken, normal;
 .choose{
   background: url('/bg.svg');
   background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg_speed{
+  background: url('/cloudspeed.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .card_bg{
   background: url('/card-bg.svg');
   background-repeat: no-repeat;
+  background-size: cover;
 }
 .bottom_bg{
   background: url('/footer-bg.svg');
   background-repeat: no-repeat;
+  background-size: cover;
 }
 .policy_bg{
   background: url('/policy-bg.svg');
   background-size: cover;
 }
-div[data-rf="stack-y"]{
-  display: none !important;
-
+.call_btn:hover{
+  background: url("/policy-bg.svg");
+  background-position: bottom;
+  color: white;
+  transform: translateY(-10px);
+  transition: .5s ease;
+}
+.morph{
+background: #3a8ad074;
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(19.7px);
+-webkit-backdrop-filter: blur(19.7px);
+}
+.morph_nav{
+background: #3a8ad074;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(19.7px);
+-webkit-backdrop-filter: blur(19.7px);
 }

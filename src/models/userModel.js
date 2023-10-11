@@ -5,7 +5,6 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please provide a name"],
-        unique: true,
     },
     email: {
         type: String,
@@ -20,13 +19,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide a phone number"],
     },
+    image : String,
+
     isSubscribed : {
         type : Boolean,
         default : false
     },
-    subscriptionExpiresOn : {
-        type : Date
-    },
+    subscriptionId:String,
+    subscriptionName: String,
+    subscriptionRenewsOn :Date,
+
     isVerified: {
         type: Boolean,
         default: false,
@@ -47,6 +49,7 @@ const userSchema = new mongoose.Schema({
         type : Number,
         default : moment().add(10,"d").unix(),
     },
+
     referralCode: String,
     refferedTo:[String],
     refferedBy : String,
@@ -57,6 +60,6 @@ const userSchema = new mongoose.Schema({
     verifyTokenExpiry: Number,
 })
 
-const User = mongoose?.models?.users || mongoose.model("users", userSchema);
+const User = mongoose.models.users || mongoose.model("users", userSchema);
 
 export default User;

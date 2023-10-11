@@ -1,3 +1,4 @@
+
 "use client"
 import { generateReferralCode } from "@/helper/generateReferralCode";
 import axios from "axios";
@@ -7,13 +8,14 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
-export default function Login() {
+export default function Signup({searchParams}) {
   const router = useRouter()
-  const [user,setUser] = useState({name : "",email:"",password:"",referralCode : "",phone:"+91"})
+  const {referral} = searchParams
+  const [user,setUser] = useState({name : "",email:"",password:"",refferedBy : referral || "",phone:"+91",referralCode:""})
   const [loading,setLoading] = useState(false)
 
 
-  async function handleLogin(e){
+  async function handleSignup(e){
     e.preventDefault()
     try {
       setLoading(true)
@@ -22,7 +24,7 @@ export default function Login() {
       const phoneNumber = user.phone;
       if (!indianPhoneNumberRegex.test(phoneNumber)) {
         toast.error("Invalid phone number!");
-        return
+        return;
       }
 
       let temp = structuredClone(user)
@@ -46,7 +48,7 @@ export default function Login() {
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
       <div className="card_blur md:p-10 px-5 py-7 lg:w-[30vw] min-w-[300px]">
         <div className="text-center font-bold text-xl ">ExamBuddyAI</div>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSignup}>
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text font-bold text-md ">Name</span>
@@ -74,6 +76,13 @@ export default function Login() {
             </label>
             <input required type="tel" maxLength={13} placeholder="Type here" className="input input-bordered w-full"  value={user.phone}
             onChange={e=>setUser(prev=>({...prev,phone:e.target.value.length > 2 && +e.target.value ? e.target.value  : "+91"}))}/>
+          </div>
+          <div className="form-control w-full ">
+            <label className="label">
+              <span className="label-text font-bold text-md ">Referral Code (Optional)</span>
+            </label>
+            <input value={user.refferedBy} type="text" placeholder="Type here" className="input input-bordered w-full" 
+            onChange={e=>setUser(prev=>({...prev,refferedBy:e.target.value}))}/>
           </div>
           {loading ? <button className="btn w-full mt-4 bg-grad bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 ">
             <span className="text-white loading loading-spinner"></span>
