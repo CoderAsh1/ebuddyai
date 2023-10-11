@@ -13,7 +13,7 @@ export default function Navbar() {
 
 async function getUser(){
     try { 
-      setLoader(true)  
+    setLoader(true)  
     let user = await axios.get("/api/user")
     setUser(user.data.user)
     } catch (error) {

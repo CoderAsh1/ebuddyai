@@ -30,6 +30,7 @@ export default function page() {
       }
         
     }
+
   return (
     <div className="w-screen h-full card_bg text-center text-white max-h-full">
       <h1 className="p-7 font-bold">Hi , Welcome to Exam Buddy !</h1>

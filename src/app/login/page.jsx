@@ -34,7 +34,8 @@ export default function Login() {
     if(!user.email) return toast.error("Please enter email !")
 
     let userData = await axios.post('/api/fetch_user',{field : "email", value : user.email})
-    if(!userData?.data?.user) return toast.error("User not found !")
+    console.log(userData)
+    if(userData?.data?.user?.length === 0) return toast.error("User not found !")
 
     await axios.put('/api/send_code',{email: user.email, type:"RESET"})
     toast.success("Code has been sent to your email.")

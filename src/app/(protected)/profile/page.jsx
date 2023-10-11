@@ -13,7 +13,8 @@ export default function page() {
   async function getUser() {
     try {
       let res = await axios.get("/api/user");
-      setUser(res.data.user);
+      let refferedTo = await axios.post("/api/fetch_user",{field: "refferedBy" ,value : res.data.user.referralCode})
+      setUser({...res.data.user,refferedTo : refferedTo.data.user});
     } catch (error) {
       console.log(user);
     } finally {
@@ -33,9 +34,9 @@ export default function page() {
   const debouncedUpdate = debounce(updateUser,600) 
 
   function copyToClip(){
-    navigator.clipboard.writeText(user?.referralCode).then(()=>toast.success("Copied to clipboard"))
+    navigator.clipboard.writeText(`${user?.referralCode}`).then(()=>toast.success("Copied to clipboard"))
   }
-
+console.log(user)
   useEffect(() => {
     getUser();
   }, []);
@@ -104,7 +105,7 @@ export default function page() {
               <div className="form-control w-full ">
                 <label className="label">
                   <span className="label-text font-bold text-md ">
-                    Referral Code <i className="hidden md:inline pointer" onClick={copyToClip}>copy </i>
+                    Referral Code <i className="hidden md:inline pointer" onClick={copyToClip}>copy</i>
                   </span>
                 </label>
                 <input
@@ -132,7 +133,7 @@ export default function page() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <p>Renews on</p>
-                  <p>{moment(user?.subscriptionRenewsOn).format("ddd DD MMM YYYY")}</p>
+                  <p>{user?.subscriptionRenewsOn && moment(user?.subscriptionRenewsOn).format("ddd DD MMM YYYY")}</p>
                 </div>
                 <button className=" text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] ">
                   Update / Cancel Subscription
@@ -141,10 +142,13 @@ export default function page() {
               <div className="gap-2 mb-5 card card_blur rounded-xl  p-5">
                 <h4 className="font-bold">Refferd to</h4>
                 <div>
+                  {user?.refferedTo?.map(item=>(
                   <div className="flex justify-between text-xs">
-                    <p>Ram Singh</p>
-                    <p>ram.sing@gmail.com</p>
+                    <p>{item.name}</p>
+                    <p>{item.email}</p>
+                    <p>{item.subscriptionName || "Free Plan"}</p>
                   </div>
+                    ))}
                 </div>
               </div>
             </div>

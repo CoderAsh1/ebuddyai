@@ -17,6 +17,9 @@ export default function page() {
       if (!user.data.user.isVerified) {
         return router.push("/verifyemail");
       }
+      if (!user.data.user.hasCompanion) {
+        return router.push("/choose_companion");
+      }
       setUser(user.data.user);
     } catch (error) {
       console.log(error, "this is the error");
