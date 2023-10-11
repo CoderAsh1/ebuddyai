@@ -3,6 +3,7 @@
 import axios from "axios";
 import moment from "moment";
 import { useRouter } from "next/navigation";
+import Script from "next/script";
 import { useEffect, useState } from "react";
 
 export default function page() {
@@ -30,6 +31,7 @@ export default function page() {
 
   useEffect(() => {
     getUser();
+    // window.location.reload()
   }, []);
 
   return (
@@ -56,11 +58,11 @@ export default function page() {
             data-retune-chat={process.env.RETUNE_ID}
             className="w-[100vw] h-[90vh]"
           ></iframe>
-          <script
+          <Script
             id="retune.so/frame"
             src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.RETUNE_ID}`}
             defer
-          ></script>
+          ></Script>
         </div>
       )}
     </div>

@@ -79,7 +79,7 @@ export default function Signup({searchParams}) {
           </div>
           <div className="form-control w-full ">
             <label className="label">
-              <span className="label-text font-bold text-md ">Referral Code</span>
+              <span className="label-text font-bold text-md ">Referral Code (Optional)</span>
             </label>
             <input value={user.refferedBy} type="text" placeholder="Type here" className="input input-bordered w-full" 
             onChange={e=>setUser(prev=>({...prev,refferedBy:e.target.value}))}/>

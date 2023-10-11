@@ -42,16 +42,16 @@ console.log(user)
   }, []);
 
   return (
-    <div className="flex justify-center items-center min-h-[90vh] card_bg">
+    <div className="flex justify-center items-center min-h-[90vh] card_bg z-1">
       {loading ? (
         <span className="loading loading-spinner loading-lg text-white"></span>
       ) : (
-        <div className="artboard artboard-horizontal w-[90vw] mt-10 md:mt-0 min-h-[70vh] md:min-w-[50vw] rounded-md card_blur p-5 md:p-10">
+        <div className="artboard artboard-horizontal w-[90vw] mt-10 md:mt-0 min-h-[70vh] md:min-w-[50vw] rounded-md p-5 md:p-10 z-1">
           <div className="flex flex-col w-full lg:flex-row h-full gap-7">
             <div className="grid flex-[2] h-full card card_blur rounded-xl place-items-center p-5">
               <div className="avatar">
                 <div className="w-24 rounded-xl">
-                  <img src={user?.image || "https://www.disneyplusinformer.com/wp-content/uploads/2021/06/Luca-Profile-Avatars-3.png"} />
+                  <img src={user?.image || "/user.png"} />
                 </div>
               </div>
               <div className="form-control w-full ">
