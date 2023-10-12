@@ -22,11 +22,11 @@ export default function page() {
         return router.push("/choose_companion");
       }
       setUser(user.data.user);
+      setLoader(false)
     } catch (error) {
       console.log(error, "this is the error");
-    } finally {
-      setLoader(false);
-    }
+      router.push("/")
+    } 
   }
 
   useEffect(() => {
