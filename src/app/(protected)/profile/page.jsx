@@ -177,9 +177,7 @@ export default function page() {
                 {user.isSubscribed ? (
                   <button
                     className=" text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] "
-                    onClick={() =>
-                      document.getElementById("my_modal_1").showModal()
-                    }
+                    onClick={() =>document.getElementById("my_modal_1").showModal()}
                   >
                     Cancel Subscription
                   </button>
@@ -188,6 +186,13 @@ export default function page() {
                     Explore plans
                   </Link>
                 )}
+                {/* {user?.isSubscribed && ( */}
+                  <Link href={`mailto:ashutosh@gmail.com?subject=Request to train my AI&body=Hi, I am ${user.name}.I want to train my companion . Here are the documents i want to train my bot with. I am sharing this documents as per my own will and i am aware the platform's privacy policy.`}
+                  className="text-center text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] "
+                  >
+                    Send Request to Train your AI
+                  </Link>
+                    {/* )} */}
               </div>
               <div className="gap-2 mb-5 card card_blur rounded-xl  p-5">
                 <h4 className="font-bold">Reffered to</h4>
