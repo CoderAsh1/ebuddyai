@@ -51,6 +51,7 @@ export default function Home() {
 
   async function displayRazorpay(total) {
     try {
+      if(user?.isSubscribed) return toast.error("Already subscribed !")
       setLoading(true);
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -119,6 +120,7 @@ export default function Home() {
 
   async function createSubscription(name) {
     try {
+      if(user?.isSubscribed) return toast.error("Already subscribed !")
       setLoading(true);
       const result = await axios.post("/api/create_subscription", {
         email: user.email,
