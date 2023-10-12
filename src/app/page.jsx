@@ -71,7 +71,7 @@ export default function Home() {
       const { amount, id: order_id, currency } = result.data;
 
       const options = {
-        key: process.env.RAZORPAY_KEY_ID,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: amount.toString(),
         currency: currency,
         name: "Supreme Plan",
@@ -125,7 +125,7 @@ export default function Home() {
         name: user.name,
       });
       var options = {
-        key: process.env.RAZORPAY_KEY_ID,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         subscription_id: result.data.data.id,
         name: "Premium Plan",
         description: "Recurring payment",
@@ -188,7 +188,7 @@ export default function Home() {
                       className="btn btn-ghost btn-circle avatar"
                     >
                       <div className="w-10 rounded-full">
-                        <img src={user?.image || "./user.png"} />
+                        <img src={user?.image || "./policy-bg.svg"} />
                       </div>
                     </label>
                     <ul
@@ -292,7 +292,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full">
+        <div id="pricing" className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full">
           <div className="text-white">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Pricing
@@ -308,7 +308,7 @@ export default function Home() {
                   </div>
                   <p>&#x2714; Free</p>
                   <Link
-                    href="/login"
+                    href={user ? "/chat" : "/login"}
                     className="morph call_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     Chat Now

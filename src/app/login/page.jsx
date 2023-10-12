@@ -22,6 +22,9 @@ export default function Login() {
         toast.success("Code has been sent to your email.")
         return router.push("/verifyemail")
       }
+      if(!user.isSubscribed){
+        return router.push("/#pricing")
+      }
       router.push(userInfo?.data?.user?.hasCompanion ? "/chat" : "/choose_companion")
     } catch (error) {
       console.log(error)
@@ -34,7 +37,6 @@ export default function Login() {
     if(!user.email) return toast.error("Please enter email !")
 
     let userData = await axios.post('/api/fetch_user',{field : "email", value : user.email})
-    console.log(userData)
     if(userData?.data?.user?.length === 0) return toast.error("User not found !")
 
     await axios.put('/api/send_code',{email: user.email, type:"RESET"})

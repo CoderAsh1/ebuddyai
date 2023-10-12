@@ -44,7 +44,7 @@ export default function page() {
             Please{" "}
             <button
               className="btn-sm rounded-lg  bg-[#382b98] hover:bg-[#241c65] text-white"
-              onClick={() => router.push("/")}
+              onClick={() => router.push("/#pricing")}
             >
               Subscribe
             </button>{" "}

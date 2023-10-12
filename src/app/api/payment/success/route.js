@@ -11,7 +11,7 @@ export async function POST(response){
             razorpayOrderId,
             razorpaySignature,
         } = reqBody;
-        // const shasum = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
+        // const shasum = crypto.createHmac("sha256", process.env.NEXT_PUBLIC_RAZORPAY_SECRET);
 
         // shasum.update(`${orderCreationId}|${razorpayPaymentId}`);
 

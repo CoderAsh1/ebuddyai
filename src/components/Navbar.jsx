@@ -55,16 +55,13 @@ async function handleLogout(){
           <button className='hidden md:block'>
             Free till {moment(user.freeTill * 1000).format("DD-MM-YYYY")}
           </button>
-          <button onClick={()=>router.push("/")} className="btn text-white bg-[#190978] hover:bg-[#211a47] mr-4 hidden md:block">
-          Subscribe Now
-        </button>
           </>
          )}
          <button className='btn btn-sm text-xs' onClick={()=>window.location.reload()} title='Click if chat does not appear'>Load Chat</button>
         <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src={user?.image || "./user.png"} />
+              <img src={user?.image || "./policy-bg.svg"} />
             </div>
           </label>
           <ul  tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-20 p-2 shadow bg-base-100 rounded-box w-52 ">
