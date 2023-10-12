@@ -133,7 +133,7 @@ export default function page() {
                       className="hidden md:inline"
                       onClick={copyToClip}
                     >
-                      (copy)
+                      (copy link)
                     </i>
                   </span>
                 </label>
