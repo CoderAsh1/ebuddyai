@@ -8,6 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import moment from "moment";
 import Footer from "@/components/Footer";
+import Tilt from "react-parallax-tilt";
 
 export default function Home() {
   const router = useRouter();
@@ -207,7 +208,7 @@ export default function Home() {
                   </div>
                 ) : (
                   <Link href="/login">
-                    <button className="p-2 px-5 bg-[#00258e] hover:bg-[#290c78] transition-colors rounded-md text-white font-bold">
+                    <button className="p-2 px-5 login_btn rounded-md text-white font-bold">
                       Sign In
                     </button>
                   </Link>
@@ -218,9 +219,8 @@ export default function Home() {
         </header>
         <div className=" bg_speed rounded-xl mb-3 flex text-center mt-5 justify-center items-center h-[80vh]">
           <div className="text-white">
-            <h1 className="lg:text:6xl md:text-4xl text-4xl mb-3 font-semibold">
-              Welcome to ExamBuddy AI
-            </h1>
+            <h1  className="lg:text:6xl md:text-4xl text-4xl mb-3 font-semibold">
+              Welcome to <span className="buddy ">ExamBuddy AI</span></h1>
             <p className="text-slate-700 text-xl font-bold">
               One stop solution to crack exams with ease
             </p>
@@ -236,12 +236,12 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center p-2 md:p-16 h-full">
+        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
           <div className="text-white">
-            <h1 className="lg:text:6xl md:text-4xl text-4xl mb-3 font-semibold">
+            <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Why Us ?
             </h1>
-            <div className="morph p-10 mt-6 text-left leading-8">
+            <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <b>1. Versatile Content Training:</b> <br />
               Whether it's textbooks, YouTube video lectures, PDFs, or website
               articles, ExamBuddy.AI can harness the power of AI from various
@@ -263,39 +263,44 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center p-6 md:p-16 h-full">
+        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
           <div className="text-white">
-            <h1 className="lg:text:6xl md:text-4xl text-4xl mb-3 font-semibold">
+            <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Train on your own data
             </h1>
-            <div className="morph p-10 mt-6 text-left leading-8">
-             <b>Upload Your Stuff:</b> Mail us at <a href="mailto:support@exambuddy.com"><b>support@exambuddy.com</b></a> to upload your study materials, no
-              matter what format they are - documents, YouTube videos, PDFs, or
-              websites. <br /> 
-              <b>Make It Yours:</b> A customize AI model will be developed using your data to focus on the
-              subjects and topics you care about. 
+            <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
+              <b>Upload Your Stuff:</b> Mail us at{" "}
+              <a href="mailto:support@exambuddy.com">
+                <b>support@exambuddy.com</b>
+              </a>{" "}
+              to upload your study materials, no matter what format they are -
+              documents, YouTube videos, PDFs, or websites. <br />
+              <b>Make It Yours:</b> A customize AI model will be developed using
+              your data to focus on the subjects and topics you care about.
               <br />
-              <b>Make it work for you:</b>  Talk to
-              It: Chat with your AI model, ask questions, get explanations, and
-              receive study tips that match your progress. Get Better Together:
-              Watch your AI model improve as it learns from your interactions.
-              It makes your study sessions more effective over time. 
+              <b>Make it work for you:</b> Talk to It: Chat with your AI model,
+              ask questions, get explanations, and receive study tips that match
+              your progress. Get Better Together: Watch your AI model improve as
+              it learns from your interactions. It makes your study sessions
+              more effective over time.
               <br />
               <div className="text-center">
-              <a href="#signup"><i>Join the
-              Future of Learning Today</i></a>
+                <a href="#signup">
+                  <i>Join the Future of Learning Today</i>
+                </a>
               </div>
             </div>
           </div>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center p-6 md:p-16 h-full">
+        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full">
           <div className="text-white">
-            <h1 className="lg:text:6xl md:text-4xl text-4xl mb-3 font-semibold">
+            <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Pricing
             </h1>
-            <div className="morph p-10 mt-6 text-left leading-8">
+
+            <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <div className="flex flex-wrap justify-center gap-10 ">
-                <div className="rounded-xl p-6 phone-1 max-w-sm flex flex-col gap-4">
+                <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Free Plan</h1>
                   <p>You will be able to access the companion.</p>
                   <div>
@@ -304,12 +309,13 @@ export default function Home() {
                   <p>&#x2714; Free</p>
                   <Link
                     href="/login"
-                     className="morph call_btn p-4 rounded-md font-bold text-center text-white mt-auto"
+                    className="morph call_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     Chat Now
                   </Link>
-                </div>
-                <div className="rounded-xl p-6 phone-1 max-w-sm flex flex-col gap-4">
+                </Tilt>
+
+                <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Premium Plan</h1>
                   <p>
                     You will be able to access the companion 30 days for free
@@ -334,8 +340,8 @@ export default function Home() {
                       "Get Plan"
                     )}
                   </button>
-                </div>
-                <div className="rounded-xl p-6 phone-1 max-w-sm flex flex-col gap-4">
+                </Tilt>
+                <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Supreme Plan</h1>
                   <p>
                     You will be able to access the companion 30 days for free
@@ -362,7 +368,7 @@ export default function Home() {
                       "Get Plan"
                     )}
                   </button>
-                </div>
+                </Tilt>
               </div>
             </div>
           </div>
