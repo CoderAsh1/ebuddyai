@@ -7,7 +7,7 @@ export async function POST(req){
         const reqBody = await req.json()
         const { name ,email } = reqBody
 
-        let instance =  new Razorpay({ key_id: process.env.RAZORPAY_KEY_ID, key_secret: process.env.NEXT_PUBLIC_RAZORPAY_SECRET })
+        let instance =  new Razorpay({ key_id: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, key_secret: process.env.NEXT_PUBLIC_RAZORPAY_SECRET })
 
         let customer = await instance.customers.create({
             name: name,

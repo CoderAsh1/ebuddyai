@@ -3,8 +3,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import debounce from 'lodash/debounce';
+import debounce from "lodash/debounce";
 import moment from "moment";
+import Script from "next/script";
+import Link from "next/link";
 
 export default function page() {
   const [user, setUser] = useState([]);
@@ -13,8 +15,11 @@ export default function page() {
   async function getUser() {
     try {
       let res = await axios.get("/api/user");
-      let refferedTo = await axios.post("/api/fetch_user",{field: "refferedBy" ,value : res.data.user.referralCode})
-      setUser({...res.data.user,refferedTo : refferedTo.data.user});
+      let refferedTo = await axios.post("/api/fetch_user", {
+        field: "refferedBy",
+        value: res.data.user.referralCode,
+      });
+      setUser({ ...res.data.user, refferedTo: refferedTo.data.user });
     } catch (error) {
       console.log(user);
     } finally {
@@ -22,21 +27,38 @@ export default function page() {
     }
   }
 
-  async function updateUser(){
+  async function updateUser() {
     try {
-        await axios.put("/api/user",user)
-        toast.success("Profile updated successfully")
+      await axios.put("/api/user", user);
+      toast.success("Profile updated successfully");
     } catch (error) {
-        console.log(error)
-        toast.error("Failed to update profile !")
+      console.log(error);
+      toast.error("Failed to update profile !");
     }
   }
-  const debouncedUpdate = debounce(updateUser,600) 
 
-  function copyToClip(){
-    navigator.clipboard.writeText(`${user?.referralCode}`).then(()=>toast.success("Copied to clipboard"))
+  function copyToClip() {
+    navigator.clipboard
+      .writeText(`${user?.referralCode}`)
+      .then(() => toast.success("Copied to clipboard"));
   }
-console.log(user)
+
+  async function cancelSub() {
+    try {
+      await axios.post("/api/cancel_subscription", {
+        subscriptionId: user?.subscriptionId,
+      });
+      toast.success("Subscription cancelled.");
+      getUser()
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to cancel Subscription.");
+    }
+  }
+
+  const debouncedUpdate = debounce(updateUser, 600);
+  const debouncedCancelSub = debounce(cancelSub, 600);
+
   useEffect(() => {
     getUser();
   }, []);
@@ -51,7 +73,7 @@ console.log(user)
             <div className="grid flex-[2] h-full card card_blur rounded-xl place-items-center p-5">
               <div className="avatar">
                 <div className="w-24 rounded-xl">
-                  <img src={user?.image || "/user.png"} />
+                  <img src={user?.image || "/policy-bg.svg"} />
                 </div>
               </div>
               <div className="form-control w-full ">
@@ -105,7 +127,13 @@ console.log(user)
               <div className="form-control w-full ">
                 <label className="label">
                   <span className="label-text font-bold text-md ">
-                    Referral Code <i className="hidden md:inline pointer" onClick={copyToClip}>copy</i>
+                    Referral Code{" "}
+                    <i
+                      className="hidden md:inline pointer"
+                      onClick={copyToClip}
+                    >
+                      copy
+                    </i>
                   </span>
                 </label>
                 <input
@@ -116,11 +144,17 @@ console.log(user)
                   className="input input-bordered w-full"
                   value={user?.referralCode}
                   onChange={(e) =>
-                    setUser((prev) => ({ ...prev, referralCode: e.target.value }))
+                    setUser((prev) => ({
+                      ...prev,
+                      referralCode: e.target.value,
+                    }))
                   }
                 />
               </div>
-              <button className="ms-auto btn mt-5  bg-[#190978] hover:bg-[#211a47] text-white" onClick={debouncedUpdate}>
+              <button
+                className="ms-auto btn mt-5  bg-[#190978] hover:bg-[#211a47] text-white"
+                onClick={debouncedUpdate}
+              >
                 Save
               </button>
             </div>
@@ -129,33 +163,71 @@ console.log(user)
                 <h4 className="font-bold">Manage Subscription</h4>
                 <div className="flex justify-between text-sm">
                   <p>Current Plan</p>
-                  <p>{user?.subscriptionName}</p>
+                  <p>{user?.subscriptionName || "Free Plan"}</p>
                 </div>
                 <div className="flex justify-between text-sm">
                   <p>Renews on</p>
-                  <p>{user?.subscriptionRenewsOn && moment(user?.subscriptionRenewsOn).format("ddd DD MMM YYYY")}</p>
+                  <p>
+                    {user?.subscriptionRenewsOn &&
+                      moment(user?.subscriptionRenewsOn).format(
+                        "ddd DD MMM YYYY"
+                      )}
+                  </p>
                 </div>
-                <button className=" text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] ">
-                  Update / Cancel Subscription
-                </button>
+                {user.isSubscribed ? (
+                  <button
+                    className=" text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] "
+                    onClick={() =>
+                      document.getElementById("my_modal_1").showModal()
+                    }
+                  >
+                    Cancel Subscription
+                  </button>
+                ) : (
+                  <Link href="/#pricing" className="text-center text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] ">
+                    Explore plans
+                  </Link>
+                )}
               </div>
               <div className="gap-2 mb-5 card card_blur rounded-xl  p-5">
-                <h4 className="font-bold">Refferd to</h4>
+                <h4 className="font-bold">Reffered to</h4>
                 <div>
-                  {user?.refferedTo?.map(item=>(
-                  <div className="flex justify-between text-xs">
-                    <p>{item.name}</p>
-                    <p>{item.email}</p>
-                    <p>{item.subscriptionName || "Free Plan"}</p>
-                  </div>
-                    ))}
+                  {user?.refferedTo?.map((item) => (
+                    <div
+                      key={item.email}
+                      className="flex justify-between text-xs"
+                    >
+                      <p>{item.name}</p>
+                      <p>{item.email}</p>
+                      <p>{item.subscriptionName || "Free Plan"}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
-     <Toaster/>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">
+            Do you really want to cancel your Subscription ?
+          </h3>
+          <p className="py-4">
+            You won't be able to access the comapnion anymore.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn" onClick={debouncedCancelSub}>
+                Yes
+              </button>
+              <button className="btn bg-black text-white ms-1">No</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      <Toaster />
+      <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
     </div>
   );
 }
