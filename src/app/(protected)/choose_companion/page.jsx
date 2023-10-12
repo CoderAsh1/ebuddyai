@@ -1,16 +1,16 @@
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Tilt from "react-parallax-tilt";
 
 
 export default function page() {
     const router = useRouter()
+    const [companion,setCompanion] = useState(null)
 
-    async function updateUserInfo(companion){
-      let conf = confirm("Are you Sure ? You won't be able to change this later !")
-      if(conf){
+    async function updateUserInfo(){
         try {
            let user = await axios.get("/api/user")
            if(user.data.user.hasCompanion){
@@ -26,9 +26,7 @@ export default function page() {
         } catch (error) {
             toast.error("Soemthing Went Wrong!")
             console.log(error)
-        }
-      }
-        
+        } 
     }
 
   return (
@@ -37,7 +35,9 @@ export default function page() {
       <h3>Choose your Area of Interest</h3>
       <div className="md:flex md:justify-between md:p-20  gap-10 items-center w-full">
         <Tilt>
-          <div className="card max-w-[300px] h-96 mx-auto my-6 text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("SSC")}>
+          <div className="card max-w-[300px] h-96 mx-auto my-6 text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>{
+            document.getElementById("my_modal_1").showModal()
+            setCompanion("SSC")}}>
             <figure className="h-72">
               <img
                 style={{height:'100%'}}
@@ -55,7 +55,9 @@ export default function page() {
         </Tilt>
 
         <Tilt>
-          <div className="card max-w-[300px] h-96 mx-auto text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("NEET")}>
+          <div className="card max-w-[300px] h-96 mx-auto text-black bg-base-100 shadow-xl bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>{
+            document.getElementById("my_modal_1").showModal()
+            setCompanion("NEET")}}>
             <figure className="h-72">
               <img
                 style={{height:'100%'}}
@@ -72,7 +74,9 @@ export default function page() {
         </Tilt>
 
         <Tilt>
-          <div className="card max-w-[300px] h-96  mx-auto text-black bg-base-100 shadow-xl my-6 bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>updateUserInfo("JEE")}>
+          <div className="card max-w-[300px] h-96  mx-auto text-black bg-base-100 shadow-xl my-6 bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>{
+            document.getElementById("my_modal_1").showModal()
+            setCompanion("JEE")}}>
             <figure className="h-72">
               <img
               style={{height:'100%'}}
@@ -89,6 +93,24 @@ export default function page() {
         </Tilt>
       </div>
       <Toaster/>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="text-black font-bold text-lg">
+            Do you really want to proceed with this ?
+          </h3>
+          <p className="text-black py-4">
+            You won't be able to change it later.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn" onClick={updateUserInfo}>
+                Yes
+              </button>
+              <button className="btn bg-black text-white ms-1">No</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }

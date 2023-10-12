@@ -33,6 +33,8 @@ export default function page() {
     getUser();
   }, []);
 
+  if(loader) return  <span className="loading loading-spinner loading-lg text-white"></span>
+
   return (
     <div className="flex justify-center items-center text-center h-[90vh]">
       {!user?.isSubscribed && moment.unix(user.freeTill).isBefore(moment()) ? (

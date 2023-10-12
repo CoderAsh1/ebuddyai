@@ -270,7 +270,7 @@ export default function Home() {
             </h1>
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <b>Upload Your Stuff:</b> Mail us at{" "}
-              <a href="mailto:support@exambuddy.com">
+              <a href={`mailto:ashutosh@gmail.com?subject=Request to train my AI&body=Hi, I am ${user.name}.I want to train my companion . Here are the documents i want to train my bot with. I am sharing this documents as per my own will and i am aware the platform's privacy policy.`}>
                 <b>support@exambuddy.com</b>
               </a>{" "}
               to upload your study materials, no matter what format they are -
@@ -317,10 +317,7 @@ export default function Home() {
 
                 <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Premium Plan</h1>
-                  <p>
-                    You will be able to access the companion 30 days for free
-                    from the data of Joining{" "}
-                  </p>
+                  <p>You will be able to access the companion</p>
                   <div>
                     <span className="font-bold text-xl">&#8377; 600</span>/month
                   </div>
