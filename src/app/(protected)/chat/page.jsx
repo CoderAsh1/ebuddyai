@@ -31,7 +31,6 @@ export default function page() {
 
   useEffect(() => {
     getUser();
-    // window.location.reload()
   }, []);
 
   return (
@@ -55,12 +54,12 @@ export default function page() {
       ) : (
         <div className="bg-blue-100 ">
           <iframe
-            data-retune-chat={process.env.RETUNE_ID}
+            data-retune-chat={process.env.NEXT_PUBLIC_RETUNE_ID}
             className="w-[100vw] h-[90vh]"
           ></iframe>
           <Script
             id="retune.so/frame"
-            src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.RETUNE_ID}`}
+            src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.NEXT_PUBLIC_RETUNE_ID}`}
             defer
           ></Script>
         </div>
