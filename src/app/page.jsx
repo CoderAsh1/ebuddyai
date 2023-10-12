@@ -51,6 +51,7 @@ export default function Home() {
 
   async function displayRazorpay(total) {
     try {
+      if(user?.isSubscribed) return toast.error("Already subscribed !")
       setLoading(true);
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -119,6 +120,7 @@ export default function Home() {
 
   async function createSubscription(name) {
     try {
+      if(user?.isSubscribed) return toast.error("Already subscribed !")
       setLoading(true);
       const result = await axios.post("/api/create_subscription", {
         email: user.email,
@@ -300,7 +302,7 @@ export default function Home() {
 
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <div className="flex flex-wrap justify-center gap-10 ">
-                <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Free Plan</h1>
                   <p>You will be able to access the companion.</p>
                   <div>
@@ -309,13 +311,13 @@ export default function Home() {
                   <p>&#x2714; Free</p>
                   <Link
                     href={user ? "/chat" : "/login"}
-                    className="morph call_btn p-4 rounded-md font-bold text-center text-white mt-auto"
+                    className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     Chat Now
                   </Link>
-                </Tilt>
+                </div>
 
-                <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Premium Plan</h1>
                   <p>You will be able to access the companion</p>
                   <div>
@@ -329,7 +331,7 @@ export default function Home() {
                         ? createSubscription("premium_plan")
                         : router.push("/login")
                     }
-                    className="morph call_btn p-4 rounded-md font-bold text-center text-white mt-auto"
+                    className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     {loading ? (
                       <span className="loading loading-dots loading-sm "></span>
@@ -337,8 +339,8 @@ export default function Home() {
                       "Get Plan"
                     )}
                   </button>
-                </Tilt>
-                <Tilt className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                </div>
+                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Supreme Plan</h1>
                   <p>
                     You will be able to access the companion 30 days for free
@@ -357,7 +359,7 @@ export default function Home() {
                     onClick={() =>
                       user ? displayRazorpay(1000000) : router.push("/login")
                     }
-                    className="morph call_btn p-4 rounded-md font-bold text-center text-white mt-auto"
+                    className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     {loading ? (
                       <span className="loading loading-dots loading-sm "></span>
@@ -365,7 +367,7 @@ export default function Home() {
                       "Get Plan"
                     )}
                   </button>
-                </Tilt>
+                </div>
               </div>
             </div>
           </div>

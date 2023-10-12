@@ -72,6 +72,10 @@ background-blend-mode: overlay, overlay, overlay, darken, normal;
   background: url("/bg.svg") !important;
   background-position: bottom;
 }
+.login_btn:hover{
+transform: translateY(-5px);
+transition: .2s ease;
+}
 .call_btn:hover{
   background: url("/policy-bg.svg") !important;
   background-position: bottom;

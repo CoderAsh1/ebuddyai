@@ -61,7 +61,7 @@ export default function Signup({searchParams}) {
               <span className="label-text font-bold text-md ">Email</span>
             </label>
             <input required autoFocus type="text" placeholder="Type here" className="input input-bordered w-full " 
-            onChange={e=>setUser(prev=>({...prev,email:e.target.value}))}/>
+            onChange={e=>setUser(prev=>({...prev,email:e.target.value.toLowerCase()}))}/>
           </div>
           <div className="form-control w-full ">
             <label className="label">
