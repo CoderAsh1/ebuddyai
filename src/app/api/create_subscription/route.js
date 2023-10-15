@@ -16,7 +16,7 @@ export async function POST(req){
         })
 
         let res = await instance.subscriptions.create({
-        plan_id: "plan_MjqMe4Cf7EoHDh",
+        plan_id: process.env.NEXT_PUBLIC_RAZORPAY_PLAN_ID,
         customer_notify: 1,
         quantity: 1,
         total_count: 12,

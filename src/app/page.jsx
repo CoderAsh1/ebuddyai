@@ -1,14 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import Script from "next/script";
-import axios from "axios";
-import { useRouter } from "next/navigation";
-import moment from "moment";
 import Footer from "@/components/Footer";
-import Tilt from "react-parallax-tilt";
+import axios from "axios";
+import moment from "moment";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Script from "next/script";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
   const router = useRouter();
@@ -90,7 +89,8 @@ export default function Home() {
           await axios.post("api/payment/success", data);
           await axios.put("/api/user", {
             isSubscribed: true,
-            subscriptionExpireOn: moment().add(30, "d").toISOString(),
+            subscriptionRenewsOn: false,
+            subscriptionName:"Supreme Plan"
           });
           toast.success("Payment Successful.");
           router.push(user?.hasCompanion ? "/chat" : "/choose_companion");
@@ -98,7 +98,7 @@ export default function Home() {
         prefill: {
           name: user.name,
           email: user.email,
-          contact: "9999999999",
+          contact: user.phone,
         },
         notes: {
           address: "Rourkela",
@@ -321,7 +321,7 @@ export default function Home() {
                   <h1 className="font-bold">Premium Plan</h1>
                   <p>You will be able to access the companion</p>
                   <div>
-                    <span className="font-bold text-xl">&#8377; 600</span>/month
+                    <span className="font-bold text-xl">&#8377; 799</span>/month
                   </div>
                   <p>&#x2714; 24/7 Customer Support</p>
                   <button
@@ -348,7 +348,7 @@ export default function Home() {
                   </p>
 
                   <div>
-                    <span className="font-bold text-xl">&#8377; 10000</span>
+                    <span className="font-bold text-xl">&#8377; 7999</span>
                     /lifetime
                   </div>
                   <p>&#x2714; 24/7 Customer Support</p>
@@ -357,7 +357,7 @@ export default function Home() {
                   <button
                     disabled={loading}
                     onClick={() =>
-                      user ? displayRazorpay(1000000) : router.push("/login")
+                      user ? displayRazorpay(799900) : router.push("/login")
                     }
                     className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
