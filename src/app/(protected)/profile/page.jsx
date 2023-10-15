@@ -173,6 +173,8 @@ export default function page() {
                       moment(user?.subscriptionRenewsOn).format(
                         "ddd DD MMM YYYY"
                       )}
+                    {user?.subscriptionRenewsOn === false &&
+                      "Lifetime"}
                   </p>
                 </div>
                 {user.isSubscribed ? (
