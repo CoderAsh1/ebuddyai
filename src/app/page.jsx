@@ -168,7 +168,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-full p-5 bg-blue-100">
+      <div className="h-full p-2 md:p-5 bg-blue-100">
         <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
         <header className="rounded-xl text-slate-700 morph" id="signup">
           <nav className="card_blur p-5 flex justify-between items-center">
@@ -292,6 +292,26 @@ export default function Home() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="text-white text-md md:text-xl font-bold card_bg rounded-xl mb-3 flex flex-col text-center justify-center px-2 py-7 md:p-10 h-full">
+          <div>Be a part of ExamBuddy AI now</div>
+          <div>Get 15 days free trial from the date of Joining</div>
+          <button
+              onClick={() => router.push("/signup")}
+              className="call_btn p-4 rounded-md font-bold mt-5 text-white w-fit mx-auto"
+            >
+              Join Now
+            </button>
+
+        </div>
+        <div className="items-center text-white font-bold card_bg rounded-xl mb-3 flex text-center justify-between px-2 py-10 md:p-16 h-full">
+          <div>
+          <h1>Refer and Earn upto &#8377;50000/-</h1>
+          <p>Terms and conditons applied*</p>
+          </div>
+          <div>
+          <img src="./referral.svg" alt="referral" height={400} width={400}/>
           </div>
         </div>
         <div id="pricing" className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full">

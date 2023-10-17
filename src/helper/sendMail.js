@@ -8,7 +8,7 @@ export const sendEmail = async({email, emailType ,code,userId}) => {
             port: 587,
             auth: {
               user: "api",
-              pass: "45b6f496685a6fe3cbca4d729846356a"
+              pass: process.env.NEXT_PUBLIC_MAIL_SECRET
             }
           });
 
