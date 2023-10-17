@@ -93,7 +93,7 @@ export default function Terms() {
         <p>
           If you have any questions or concerns about these Terms and
           Conditions, please contact us at{" "}
-          <a href="mailto:contact@exambuddy.com">contact@exambuddy.com</a>.
+          <a href="mailto:support@exambuddyai.com">support@exambuddyai.com</a>.
         </p>
         <i>Last updated - 11.10.23</i>
       </div>

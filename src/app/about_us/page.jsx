@@ -78,7 +78,7 @@ export default function page() {
         <p>
           If you have any other questions or concerns about our platform,
           including the use of your data, please don't hesitate to contact us at{" "}
-          <a href="mailto:help@exambuddy.com">help@exambuddy.com</a>.
+          <a href="mailto:support@exambuddyai.com">support@exambuddyai.com</a>.
         </p>
       </div>
     </>
