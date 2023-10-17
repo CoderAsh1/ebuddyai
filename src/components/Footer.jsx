@@ -22,6 +22,7 @@ export default function Footer() {
             <Link href={"/terms_and_conditions"} className="link link-hover">Terms and Conditions</Link> 
             <Link href={"/privacy_policy"} className="link link-hover">Privacy policy</Link> 
             <Link href={"/cancellation_and_refund_policy"} className="link link-hover">Cancellation and Refund</Link>
+            <Link href={"/shipping_and_delivery"} className="link link-hover">Shipping and Delivery</Link>
         </nav> 
         <form>
             <header className="footer-title">Contact Us</header> 
