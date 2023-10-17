@@ -42,6 +42,7 @@ export default function VerifyEmail({searchParams}) {
         setLoading(true)
         await axios.put('/api/send_code',{email :user.email,type:"VERIFY"})
         toast.success("Code has been resent to your email.")
+        getUser()
     } catch (error) {
         toast.error("Failed to send code !")
     }finally {setLoading(false)}

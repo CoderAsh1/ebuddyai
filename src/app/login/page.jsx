@@ -23,7 +23,7 @@ export default function Login() {
         return router.push("/verifyemail")
       }
       if(!user.isSubscribed){
-        return router.push("/#pricing")
+        return router.push("/")
       }
       router.push(userInfo?.data?.user?.hasCompanion ? "/chat" : "/choose_companion")
     } catch (error) {
