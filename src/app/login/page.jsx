@@ -41,11 +41,11 @@ export default function Login() {
 
     await axios.put('/api/send_code',{email: user.email, type:"RESET"})
     toast.success("Code has been sent to your email.")
+    router.push(`/reset_password?id=${user.email}`)
     } catch (error) {
         console.log(error)
         toast.error("Failed to send code.")
     }
-
   }
 
   return (

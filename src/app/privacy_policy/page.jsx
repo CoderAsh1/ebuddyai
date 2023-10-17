@@ -65,7 +65,7 @@ export default function PrivacyPolicy() {
         <p>
           You have the right to access, correct, or delete your information.
           Contact us at{" "}
-          <a href="mailto:privacy@exambuddy.com">privacy@exambuddy.com</a> with
+          <a href="mailto:support@exambuddyai.com">support@exambuddyai.com</a> with
           any questions or concerns.
         </p>
 

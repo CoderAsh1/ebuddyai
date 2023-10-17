@@ -168,7 +168,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-full p-5 bg-blue-100">
+      <div className="h-full p-2 md:p-5 bg-blue-100">
         <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
         <header className="rounded-xl text-slate-700 morph" id="signup">
           <nav className="card_blur p-5 flex justify-between items-center">
@@ -238,8 +238,28 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
-          <div className="text-white">
+
+        <div className="text-white text-md md:text-xl font-bold card_bg rounded-xl mb-3 flex flex-col text-center justify-center px-2 py-7 md:p-10 h-full">
+          <div>Be a part of ExamBuddy AI now</div>
+          <div>Get 15 days free trial from the date of Joining</div>
+          <button className="p-2 px-5 login_btn rounded-md text-white font-bold w-fit mx-auto mt-4">
+                      Join Now
+                    </button>
+
+        </div>
+
+        <div className="items-center text-white font-bold card_bg rounded-xl mb-3 flex text-center justify-between px-2 py-10 md:p-16 h-full">
+          <div>
+          <h1>Refer and Earn upto &#8377;50000/-</h1>
+          <p>Terms and conditons applied*</p>
+          </div>
+          <div>
+          <img src="./referral.svg" alt="referral" height={400} width={400}/>
+          </div>
+        </div>
+
+        <div className=" card_bg rounded-xl mb-3 flex flex-col md:flex-row text-center justify-center px-2 py-10 md:p-16 h-full">
+          <div className="text-white me-3">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Why Us ?
             </h1>
@@ -264,8 +284,11 @@ export default function Home() {
               AI model's body.
             </div>
           </div>
+          <img src="./whyus.svg" alt="referral" height={400} width={400} className="hidden md:block"/>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
+
+        <div className="card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
+          <img src="./train.svg" alt="referral" height={400} width={400} className="hidden md:block"/>
           <div className="text-white">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Train on your own data
@@ -273,7 +296,7 @@ export default function Home() {
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <b>Upload Your Stuff:</b> Mail us at{" "}
               <a href={`mailto:ashutosh@gmail.com?subject=Request to train my AI&body=I want to train my companion . Here are the documents i want to train my bot with. I am sharing this documents as per my own will and i am aware the platform's privacy policy.`}>
-                <b>support@exambuddy.com</b>
+                <b>support@exambuddyai.com</b>
               </a>{" "}
               to upload your study materials, no matter what format they are -
               documents, YouTube videos, PDFs, or websites. <br />
@@ -294,6 +317,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div id="pricing" className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full">
           <div className="text-white">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
@@ -302,7 +326,7 @@ export default function Home() {
 
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <div className="flex flex-wrap justify-center gap-10 ">
-                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                {/* <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Free Plan</h1>
                   <p>You will be able to access the companion.</p>
                   <div>
@@ -315,7 +339,7 @@ export default function Home() {
                   >
                     Chat Now
                   </Link>
-                </div>
+                </div> */}
 
                 <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Premium Plan</h1>
@@ -372,7 +396,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         <Toaster />
       </div>
       <Footer />

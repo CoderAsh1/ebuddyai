@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
     },
     freeTill :{
         type : Number,
-        default : moment().add(10,"d").unix(),
+        default : moment().add(15,"d").unix(),
     },
 
     referralCode: String,
