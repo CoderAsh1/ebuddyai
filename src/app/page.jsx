@@ -238,8 +238,8 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
-          <div className="text-white">
+        <div className=" card_bg rounded-xl mb-3 flex flex-col md:flex-row text-center justify-center px-2 py-10 md:p-16 h-full">
+          <div className="text-white me-3">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Why Us ?
             </h1>
@@ -264,8 +264,10 @@ export default function Home() {
               AI model's body.
             </div>
           </div>
+          <img src="./whyus.svg" alt="referral" height={400} width={400} className="hidden md:block"/>
         </div>
-        <div className=" card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
+        <div className="card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
+          <img src="./train.svg" alt="referral" height={400} width={400} className="hidden md:block"/>
           <div className="text-white">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Train on your own data
