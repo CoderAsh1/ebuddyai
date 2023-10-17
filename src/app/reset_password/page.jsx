@@ -25,6 +25,22 @@ export default function ResetPassword({searchParams}) {
     }finally {setLoading(false)}
   }
 
+  async function sendCode(){
+    try {
+    if(!user.email) return toast.error("Please enter email !")
+
+    let userData = await axios.post('/api/fetch_user',{field : "email", value : user.email})
+    if(userData?.data?.user?.length === 0) return toast.error("User not found !")
+
+    await axios.put('/api/send_code',{email: user.email, type:"RESET"})
+    toast.success("Code has been resent to your email.")
+    } catch (error) {
+        console.log(error)
+        toast.error("Failed to send code.")
+    }
+  }
+
+
 
   return (
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
@@ -57,7 +73,9 @@ export default function ResetPassword({searchParams}) {
           </button> :    
           <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600">Reset Password</button> }
         </form>
+        <div className="cursor-pointer text-center mt-5  text-slate-700" onClick={sendCode}>{loading ? <span className="loading loading-dots loading-sm "></span> : "Resend Code"} </div>
       </div>
+     
      <Toaster/>
     </div>
   )

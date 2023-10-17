@@ -302,7 +302,7 @@ export default function Home() {
 
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <div className="flex flex-wrap justify-center gap-10 ">
-                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                {/* <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Free Plan</h1>
                   <p>You will be able to access the companion.</p>
                   <div>
@@ -315,7 +315,7 @@ export default function Home() {
                   >
                     Chat Now
                   </Link>
-                </div>
+                </div> */}
 
                 <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
                   <h1 className="font-bold">Premium Plan</h1>

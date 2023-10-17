@@ -3,12 +3,12 @@ import nodemailer from 'nodemailer';
 export const sendEmail = async({email, emailType ,code,userId}) => {
     try {
         const hashedToken = code
-        var transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+          var transport = nodemailer.createTransport({
+            host: "live.smtp.mailtrap.io",
+            port: 587,
             auth: {
-              user: "b744bf0d593449",
-              pass: "1f03d11944a5ed"
+              user: "api",
+              pass: "45b6f496685a6fe3cbca4d729846356a"
             }
           });
 
@@ -16,8 +16,8 @@ export const sendEmail = async({email, emailType ,code,userId}) => {
             from: 'support@exambuddyai.com',
             to: email,
             subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
-            html: `<p>Click <a href="${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "reset_password"}?token=${hashedToken}&id=${emailType === "VERIFY" ? userId : email}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
-            or copy and paste the code  in your browser. <br> ${process.env.DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "reset_password"}?code=${hashedToken}&id=${emailType === "VERIFY" ? userId : email}
+            html: `<p>Click <a href="${process.env.NEXT_PUBLIC_DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "reset_password"}?token=${hashedToken}&id=${emailType === "VERIFY" ? userId : email}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}
+            or copy and paste the code  in your browser. <br> ${process.env.NEXT_PUBLIC_DOMAIN}/${emailType === "VERIFY" ? "verifyemail" : "reset_password"}?code=${hashedToken}&id=${emailType === "VERIFY" ? userId : email}
             </p>`
         }
 
