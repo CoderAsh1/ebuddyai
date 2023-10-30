@@ -412,6 +412,9 @@ export default function Home() {
           </p>
           <img className="mx-auto" src="./Payment QR.jpg" alt="qr" />
         </div>
+        <form>
+        <button className="btn btn-sm mt-3">Close</button>
+        </form>
       </dialog>
       <Footer />
     </>
