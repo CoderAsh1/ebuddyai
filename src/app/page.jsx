@@ -350,11 +350,12 @@ export default function Home() {
                   <p>&#x2714; 24/7 Customer Support</p>
                   <button
                     disabled={loading}
-                    onClick={() =>
-                      user
-                        ? createSubscription("premium_plan")
-                        : router.push("/login")
-                    }
+                    // onClick={() =>
+                    //   user
+                    //     ? createSubscription("premium_plan")
+                    //     : router.push("/login")
+                    // }
+                    onClick={()=>document.getElementById("my_modal_1").showModal()}
                     className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     {loading ? (
@@ -380,9 +381,10 @@ export default function Home() {
                   <p>&#x2714; Custom ChatBot With Own Data</p>
                   <button
                     disabled={loading}
-                    onClick={() =>
-                      user ? displayRazorpay(799900) : router.push("/login")
-                    }
+                    // onClick={() =>
+                    //   user ? displayRazorpay(799900) : router.push("/login")
+                    // }
+                    onClick={()=>document.getElementById("my_modal_1").showModal()}
                     className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     {loading ? (
@@ -398,6 +400,19 @@ export default function Home() {
         </div>
         <Toaster />
       </div>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box text-center ">
+          <h3 className="font-bold text-lg">
+            Make payment and send screenshot to  <a  href={`mailto:ashutosh@gmail.com?subject=Payment Succesful.&body= Hello, ExamBuddy. I just made a payment to the provided UPI ID.Please activate my account as soon as possible`}>
+                <b className="text-blue-700">support@exambuddyai.com</b>
+            </a>
+          </h3>
+          <p className="py-4">
+            Account will be activated in 24hrs of successful payment..
+          </p>
+          <img className="mx-auto" src="./Payment QR.jpg" alt="qr" />
+        </div>
+      </dialog>
       <Footer />
     </>
   );
