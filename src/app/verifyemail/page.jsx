@@ -12,6 +12,8 @@ export default function VerifyEmail({searchParams}) {
   const [loading,setLoading] = useState(false)
   const [code,setCode] = useState(token || "")
   const [user,setUser] = useState({})
+  const [disabled,setDisabled] = useState(false)
+
 
   async function handleVerify(e){
     e.preventDefault()
@@ -39,10 +41,15 @@ export default function VerifyEmail({searchParams}) {
 
   async function resend(){
     try {
+      if(!user?.email) return toast.error("Email does not exits!")
         setLoading(true)
         await axios.put('/api/send_code',{email :user.email,type:"VERIFY"})
         toast.success("Code has been resent to your email.")
         getUser()
+        setDisabled(true)
+        setTimeout(() => {
+          setDisabled(false)
+        }, 10000);
     } catch (error) {
         toast.error("Failed to send code !")
     }finally {setLoading(false)}
@@ -67,7 +74,7 @@ export default function VerifyEmail({searchParams}) {
 
   return (
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
-      <div className="card_blur md:p-10 px-5 py-7  lg:w-[30vw] min-w-[300px]">
+      <div className="card_blur md:p-10 px-5 py-7  lg:w-[30vw] min-w-[300px] text-center">
         <div className="text-center font-bold text-xl mb-4">Verify Email</div>
         <form onSubmit={handleVerify}>
           <div className="form-control w-full">
@@ -81,7 +88,7 @@ export default function VerifyEmail({searchParams}) {
             <span className="loading loading-spinner"></span>
           </button> :    
           <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600">Continue</button> }
-           <div className="cursor-pointer text-center mt-5  text-slate-700" onClick={resend}>{loading ? <span className="loading loading-dots loading-sm "></span> : "Resend Code"} </div>
+           <button disabled={disabled} className="btn btn-sm cursor-pointer text-center mt-5  text-slate-700" onClick={resend}>{loading ? <span className="loading loading-dots loading-sm "></span> : "Resend Code"} </button>
         </form>
       </div>
       

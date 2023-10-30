@@ -91,6 +91,24 @@ export default function page() {
             </div>
           </div>
         </Tilt>
+        <Tilt>
+          <div className="card max-w-[300px] h-96  mx-auto text-black bg-base-100 shadow-xl my-6 bg-gradient-to-r from-slate-200 to-blue-300 cursor-pointer hover:shadow-blue-300" onClick={()=>{
+            document.getElementById("my_modal_1").showModal()
+            setCompanion("OTHER")}}>
+            <figure className="h-72">
+              <img
+              style={{height:'100%'}}
+                src="JEE.jpg"
+                alt="ssc"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="mx-auto card-title p-0 m-0 text-slate-700">
+                Other
+              </h2>
+            </div>
+          </div>
+        </Tilt>
       </div>
       <Toaster/>
       <dialog id="my_modal_1" className="modal">
