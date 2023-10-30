@@ -11,6 +11,7 @@ export default function ResetPassword({searchParams}) {
   const {id ,token} = searchParams
   const [user,setUser] = useState({email:id || "",password:"",code : token || ""})
   const [loading,setLoading] = useState(false)
+  const [disabled,setDisabled] = useState(false)
 
   async function handleResetPassword(e){
     e.preventDefault()
@@ -34,6 +35,10 @@ export default function ResetPassword({searchParams}) {
 
     await axios.put('/api/send_code',{email: user.email, type:"RESET"})
     toast.success("Code has been resent to your email.")
+    setDisabled(true)
+    setTimeout(() => {
+      setDisabled(false)
+    }, 10000);
     } catch (error) {
         console.log(error)
         toast.error("Failed to send code.")
@@ -44,7 +49,7 @@ export default function ResetPassword({searchParams}) {
 
   return (
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
-      <div className="card_blur md:p-10 px-5 py-7  lg:w-[30vw] min-w-[300px]">
+      <div className="card_blur md:p-10 px-5 py-7  lg:w-[30vw] min-w-[300px] text-center">
         <div className="text-center font-bold text-xl ">ExamBuddyAI</div>
         <form onSubmit={handleResetPassword}>
           <div className="form-control w-full">
@@ -73,7 +78,7 @@ export default function ResetPassword({searchParams}) {
           </button> :    
           <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600">Reset Password</button> }
         </form>
-        <div className="cursor-pointer text-center mt-5  text-slate-700" onClick={sendCode}>{loading ? <span className="loading loading-dots loading-sm "></span> : "Resend Code"} </div>
+        <button disabled={disabled} className=" btn btn-sm cursor-pointer text-center mt-5 text-slate-700" onClick={sendCode}>{loading ? <span className="loading loading-dots loading-sm "></span> : "Resend Code"} </button>
       </div>
      
      <Toaster/>
