@@ -373,7 +373,7 @@ export default function Home() {
                   </p>
 
                   <div>
-                    <span className="font-bold text-xl">&#8377; 7999</span>
+                    <span className="font-bold text-xl">&#8377; 4999</span>
                     /lifetime
                   </div>
                   <p>&#x2714; 24/7 Customer Support</p>
