@@ -4,12 +4,14 @@ import { getDataFromToken } from "@/helper/getDataFromToken";
 import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 
-
 export async function GET(request){
     
     try {
         await connect();
-        const userId = await getDataFromToken(request);
+        console.log(request.cookies.get("userId").value,'id')
+        // console.log(getCookie("userId"))
+
+        const userId = request.cookies.get("userId")?.value ||  await getDataFromToken(request);
         const user = await User.findById(userId)
         return NextResponse.json({
             mesaaage: "User found",

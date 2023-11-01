@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
     },
     companion :{
         type : String,
-        enum :["SSC", "JEE","NEET"],
+        enum :["SSC", "JEE","NEET","OTHER"],
     },
     freeTill :{
         type : Number,
