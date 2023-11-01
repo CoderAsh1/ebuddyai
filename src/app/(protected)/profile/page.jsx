@@ -88,7 +88,7 @@ export default function page() {
                   type="text"
                   placeholder="Paste link here"
                   className="input input-bordered w-full"
-                  value={user?.image}
+                  value={user?.image || ""}
                   onChange={(e) =>
                     setUser((prev) => ({ ...prev, image: e.target.value }))
                   }

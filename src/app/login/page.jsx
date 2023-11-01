@@ -75,7 +75,7 @@ export default function Login() {
     });
 
     if(userInfo.data.user.length === 0){
-        toast.error("Incorrect Info")
+        toast.error("No User Found!")
         signOut()
         setNavigating(false)
         return

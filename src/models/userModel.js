@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please provide a name"],
+        unique : false
     },
     email: {
         type: String,
@@ -13,14 +14,13 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "Please provide a password"],
     },
     phone:{
         type: String,
-        required: [true, "Please provide a phone number"],
     },
-    image : String,
-
+    image:{
+        type: String,
+    },
     isSubscribed : {
         type : Boolean,
         default : false

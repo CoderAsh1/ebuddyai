@@ -8,9 +8,6 @@ export async function GET(request){
     
     try {
         await connect();
-        console.log(request.cookies.get("userId").value,'id')
-        // console.log(getCookie("userId"))
-
         const userId = request.cookies.get("userId")?.value ||  await getDataFromToken(request);
         const user = await User.findById(userId)
         return NextResponse.json({
@@ -26,7 +23,7 @@ export async function GET(request){
 export async function PUT(request) {
     try {
         const reqBody = await request.json()
-        const userId = await getDataFromToken(request);
+        const userId = request.cookies.get("userId")?.value || await getDataFromToken(request);
  
         let user = await User.findByIdAndUpdate(userId, reqBody);
 

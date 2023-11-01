@@ -50,29 +50,32 @@ export default function Signup({searchParams}) {
 
    async function getAuthUser() {
     try {
-    const session = await getSession();
+      const session = await getSession();
     
-    if (session) setNavigating(true);
-    else return setNavigating(false);
+     if (session) setNavigating(true);
+      else return setNavigating(false);
     
-    const {gUser} = session
-    let userInfo = await axios.post("/api/fetch_user", {
-      field: "email",
-      value: session.user.email,
-    });
-
-    if(userInfo.data.user.length === 0){
-        let code = await referralCode()
-        await axios.post("/api/signup",{name : gUser.name , email: gUser.email ,image : gUser.image,referralCode : code})
-        toast.success("User created successfully.")
-        router.push("/login")
+      const {user} = session
+    
+      let userInfo = await axios.post("/api/fetch_user", {
+        field: "email",
+        value: user.email,
+      }); 
+      if(userInfo.data.user.length !== 0){
+        const userd = userInfo.data.user[0]
+        setCookie("userId",userd._id)
+        
+        if (!user.isSubscribed) return router.push("/");
+        router.push(user?.hasCompanion ? "/chat" : "/choose_companion"); 
         return;
-    }
-      const user = userInfo.data.user[0]
-      setCookie("userId",user._id)
-    
-     if (!user.isSubscribed) return router.push("/");
-      router.push(user?.hasCompanion ? "/chat" : "/choose_companion"); 
+      }
+      let code = await referralCode()
+
+      await axios.post("/api/signup",{name : user.name,email:user.email,password:code+"@123ebuddy987",refferedBy : referral || "",referralCode:code, image : user.image || null,isVerified : true})
+
+      toast.success("User created successfully.")
+      router.push("/login")
+
     } catch (error) {
         console.log(error)
     }
@@ -82,8 +85,6 @@ export default function Signup({searchParams}) {
     getAuthUser()
   }, [])
   
-
-
   return (
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
       <div className="card_blur md:p-10 px-5 py-7 lg:w-[30vw] min-w-[300px]">

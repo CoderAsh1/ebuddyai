@@ -16,6 +16,9 @@ async function getUser(){
     setLoader(true)  
     let user = await axios.get("/api/user")
     setUser(user.data.user)
+    if(!user.data.user){
+      handleLogout()
+    }
     } catch (error) {
       console.log(error,"this is the error")
       handleLogout()
@@ -45,7 +48,7 @@ async function handleLogout(){
             </Link>
         </div>
       <div className='md:text-lg'><span className='text-[13px]'>
-        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {!user.isSubscribed && <span className='md:hidden font-bold'> (Free Plan)</span>}
+        Welcome,<span className='ms-1 username'>{loader ? <span className="loading loading-dots loading-sm "></span> : user?.name}</span> {!user?.isSubscribed && <span className='md:hidden font-bold'> (Free Plan)</span>}
       </span>
         </div>
 
@@ -53,7 +56,7 @@ async function handleLogout(){
         {!user?.isSubscribed &&(
           <>
           <button className='hidden md:block'>
-            Free till {moment(user.freeTill * 1000).format("DD-MM-YYYY")}
+            Free till {moment(user?.freeTill * 1000).format("DD-MM-YYYY")}
           </button>
           </>
          )}

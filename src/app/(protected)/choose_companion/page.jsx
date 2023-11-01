@@ -98,13 +98,13 @@ export default function page() {
             <figure className="h-72">
               <img
               style={{height:'100%'}}
-                src="JEE.jpg"
+                src="robot.jpg"
                 alt="ssc"
               />
             </figure>
             <div className="card-body">
               <h2 className="mx-auto card-title p-0 m-0 text-slate-700">
-                Other
+                Hybrid
               </h2>
             </div>
           </div>
