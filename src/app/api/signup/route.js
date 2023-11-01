@@ -9,14 +9,15 @@ export async function POST(request){
     try {
         await connect()
         const reqBody = await request.json()
-        const {name, email, password ,referralCode,phone,refferedBy} = reqBody
+        const {name, email, password ,referralCode,phone,refferedBy,image} = reqBody
 
-        const user = await User.findOne({
-            $or: [
-              { email: email },
-              { phone: phone }
-            ]
-          });
+        // const user = await User.findOne({
+        //     $or: [
+        //       { email: email },
+        //       { phone: phone }
+        //     ]
+        //   });
+        const user = await User.findOne({email : email});
 
         if(user){
             return NextResponse.json({error: "User already exists !",success:false}, {status: 400})
@@ -25,14 +26,7 @@ export async function POST(request){
         const salt = await bcryptjs.genSalt(10)
         const hashedPassword = await bcryptjs.hash(password, salt)
 
-        const newUser = new User({
-            name,
-            email,
-            password: hashedPassword,
-            referralCode,
-            phone,
-            refferedBy
-        })
+        const newUser = new User(reqBody)
         const savedUser = await newUser.save()
 
         return NextResponse.json({

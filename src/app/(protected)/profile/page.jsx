@@ -88,7 +88,7 @@ export default function page() {
                   type="text"
                   placeholder="Paste link here"
                   className="input input-bordered w-full"
-                  value={user?.image}
+                  value={user?.image || ""}
                   onChange={(e) =>
                     setUser((prev) => ({ ...prev, image: e.target.value }))
                   }
@@ -167,6 +167,7 @@ export default function page() {
                   <p>{user?.subscriptionName || "Free Plan"}</p>
                 </div>
                 <div className="flex justify-between text-sm">
+                  {console.log(user)}
                   <p>Renews on</p>
                   <p>
                     {user?.subscriptionRenewsOn &&
@@ -177,7 +178,7 @@ export default function page() {
                       "Lifetime"}
                   </p>
                 </div>
-                {user.isSubscribed ? (
+                {/* {user.isSubscribed ? (
                   <button
                     className=" text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] "
                     onClick={() =>document.getElementById("my_modal_1").showModal()}
@@ -188,7 +189,10 @@ export default function page() {
                   <Link href="/#pricing" className="text-center text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] ">
                     Explore plans
                   </Link>
-                )}
+                )} */}
+                 <Link href="/#pricing" className="text-center text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] ">
+                    Explore plans
+                  </Link>
                 {user?.isSubscribed ? (
                   <Link href={`mailto:ashutosh@gmail.com?subject=Request to train my AI&body=Hi, I am ${user.name}.I want to train my companion . Here are the documents i want to train my bot with. I am sharing this documents as per my own will and i am aware the platform's privacy policy.`}
                   className="text-center text-xs p-2 rounded-md font-bold bg-[#fff8f8] hover:bg-[#aecbfc] "

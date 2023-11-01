@@ -2,9 +2,11 @@
 "use client"
 import { generateReferralCode } from "@/helper/generateReferralCode";
 import axios from "axios";
+import { setCookie } from "cookies-next";
+import { getSession, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 
@@ -13,6 +15,8 @@ export default function Signup({searchParams}) {
   const {referral} = searchParams
   const [user,setUser] = useState({name : "",email:"",password:"",refferedBy : referral || "",phone:"+91",referralCode:""})
   const [loading,setLoading] = useState(false)
+  const [navigating, setNavigating] = useState(true);
+
 
 
   async function handleSignup(e){
@@ -44,10 +48,52 @@ export default function Signup({searchParams}) {
     return res;
    }
 
+   async function getAuthUser() {
+    try {
+      const session = await getSession();
+    
+     if (session) setNavigating(true);
+      else return setNavigating(false);
+    
+      const {user} = session
+    
+      let userInfo = await axios.post("/api/fetch_user", {
+        field: "email",
+        value: user.email,
+      }); 
+      if(userInfo.data.user.length !== 0){
+        const userd = userInfo.data.user[0]
+        setCookie("userId",userd._id)
+        
+        if (!user.isSubscribed) return router.push("/");
+        router.push(user?.hasCompanion ? "/chat" : "/choose_companion"); 
+        return;
+      }
+      let code = await referralCode()
+
+      await axios.post("/api/signup",{name : user.name,email:user.email,password:code+"@123ebuddy987",refferedBy : referral || "",referralCode:code, image : user.image || null,isVerified : true})
+
+      toast.success("User created successfully.")
+      router.push("/login")
+
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getAuthUser()
+  }, [])
+  
   return (
     <div className="flex justify-center items-center h-screen w-screen  bg-blue-100 card_bg p-10">
       <div className="card_blur md:p-10 px-5 py-7 lg:w-[30vw] min-w-[300px]">
         <div className="text-center font-bold text-xl ">ExamBuddyAI</div>
+        {navigating ? (
+          <div className="text-center mt-6">
+              <span className="loading loading-spinner loading-lg "></span>
+            </div>
+        ) : (
         <form onSubmit={handleSignup}>
           <div className="form-control w-full">
             <label className="label">
@@ -86,13 +132,23 @@ export default function Signup({searchParams}) {
           </div>
           {loading ? <button className="btn w-full mt-4 bg-grad bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 ">
             <span className="text-white loading loading-spinner"></span>
-          </button> :    
-          <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600  hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600 text-white">Signup</button> }
+          </button> :   
+          <>
+          <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600  hover:bg-gradient-to-l from-voilet-600  text-white">Signup</button> 
+          <div className="text-center">-OR-</div>
+          <button type="button" onClick={() =>{
+                setLoading(true)
+                signIn("google")}}  className="btn w-full mt-1  ">
+             Signup with <img src="./google.png"/>
+            </button>
+          </> 
+          }
             <div className="text-center mt-5 text-sm text-slate-700">Already have an Account ?</div>
             <Link href='/login'>
             <button className="btn w-full mt-4  bg-[#190978] hover:bg-[#211a47] text-white" type="button">Login</button>
             </Link>
         </form>
+        )}
       </div>
      <Toaster/>
     </div>
