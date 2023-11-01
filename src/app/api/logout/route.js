@@ -29,6 +29,14 @@ export async function GET() {
             {
                 httpOnly: true, expires: new Date(0)
             });
+        response.cookies.set("__Secure-next-auth.session-token", "",
+            {
+                httpOnly: true, expires: new Date(0)
+            });
+        response.cookies.set("__Secure-next-auth.callback-url", "",
+            {
+                httpOnly: true, expires: new Date(0)
+            });
         return response;
     } catch (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
