@@ -57,7 +57,7 @@ async function handleLogout(){
           </button>
           </>
          )}
-         <button className='btn btn-sm text-xs' onClick={()=>window.location.reload()} title='Click if chat does not appear'>Load Chat</button>
+         {/* <button className='btn btn-sm text-xs' onClick={()=>window.location.reload()} title='Click if chat does not appear'>Load Chat</button> */}
         <div className="dropdown dropdown-end md:relative absolute right-0 top-0">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">

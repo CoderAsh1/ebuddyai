@@ -67,7 +67,7 @@ export default function Login() {
     try {
     const session = await getSession();
     if (session) setNavigating(true);
-    else {setNavigating(false)};
+    else return setNavigating(false);
 
     let userInfo = await axios.post("/api/fetch_user", {
       field: "email",
@@ -153,14 +153,14 @@ export default function Login() {
               </button>
             ) : (
               <>
-              <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600">
+              <button className="btn w-full mt-4 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 ">
                 Login
               </button>
               <div className="text-center">-OR-</div>
               <button type="button" onClick={() =>{
                 setLoading(true)
-                signIn("google")}}  className="btn w-full mt-1 bg-gradient-to-l from-fuchsia-600 via-violet-900 to-indigo-600 text-white hover:bg-gradient-to-l from-voilet-600 via-pink-700 to-blue-600">
-              Sign in with Google
+                signIn("google")}}  className="btn w-full mt-1  ">
+             Login with <img src="./google.png"/>
             </button>
               </>
             )}
