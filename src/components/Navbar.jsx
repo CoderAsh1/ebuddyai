@@ -28,7 +28,7 @@ async function getUser(){
 async function handleLogout(){
   try {
     await axios.get("/api/logout")
-    router.push("/login")
+    // router.push("/login")
   } catch (error) {
     console.log(error)
   }
