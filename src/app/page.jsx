@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer";
 import axios from "axios";
+import { setCookie } from "cookies-next";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -159,8 +160,11 @@ export default function Home() {
 
   async function handleLogout() {
     try {
-      await axios.get("/api/logout");
-      router.push("/login");
+      setCookie("userId" , "")
+      setCookie("__Secure-next-auth.session-token","")
+      // await axios.get("/api/logout");
+      // router.push("/login");
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }
