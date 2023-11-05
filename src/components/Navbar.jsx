@@ -3,6 +3,7 @@
 import axios from 'axios'
 import { setCookie } from 'cookies-next'
 import moment from 'moment/moment'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -28,6 +29,7 @@ async function getUser(){
 
 async function handleLogout(){
   try {
+    await signOut()
     await axios.get("/api/logout")
     router.push("/login")
   } catch (error) {

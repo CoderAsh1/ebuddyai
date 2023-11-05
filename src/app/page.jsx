@@ -4,11 +4,13 @@ import Footer from "@/components/Footer";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import moment from "moment";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
 
 export default function Home() {
   const router = useRouter();
@@ -162,6 +164,7 @@ export default function Home() {
     try {
       setCookie("userId" , "")
       setCookie("__Secure-next-auth.session-token","")
+      await signOut()
       await axios.get("/api/logout");
       // router.push("/login");
       window.location.reload()
@@ -244,6 +247,9 @@ export default function Home() {
         </div>
 
         <div className="text-white text-md md:text-xl font-bold card_bg rounded-xl mb-3 flex flex-col text-center justify-center px-2 py-7 md:p-10 h-full">
+          <div className="text-3xl">Launch Offer</div>
+          <div className="text-2xl">Get lifetime access at  <span className="text-black">50% discount</span></div>
+          <div className="text-sm font-normal mb-4 ">Check pricing section for more info</div>
           <div>Be a part of ExamBuddy AI now</div>
           <div>Get 15 days free trial from the date of Joining</div>
           <button className="p-2 px-5 login_btn rounded-md text-white font-bold w-fit mx-auto mt-4">
@@ -263,7 +269,7 @@ export default function Home() {
         </div>
 
         <div className=" card_bg rounded-xl mb-3 flex flex-col md:flex-row text-center justify-center px-2 py-10 md:p-16 h-full">
-          <div className="text-white me-3">
+          <div className="text-white me-3" >
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Why Us ?
             </h1>
@@ -377,8 +383,8 @@ export default function Home() {
                   </p>
 
                   <div>
-                    <span className="font-bold text-xl">&#8377; 7999</span>
-                    /lifetime
+                    <span className="font-bold text-xl">&#8377; <s>9999</s> 4999 </span>
+                    / lifetime
                   </div>
                   <p>&#x2714; 24/7 Customer Support</p>
                   <p>&#x2714; LifeTime Access</p>
