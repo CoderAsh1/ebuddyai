@@ -4,16 +4,27 @@ import Footer from "@/components/Footer";
 import axios from "axios";
 import { setCookie } from "cookies-next";
 import moment from "moment";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import AOS from 'aos';
+import 'aos/dist/aos.css'
+
 
 export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    AOS.init({
+         duration: 800,
+         once: false,
+       })
+ }, [])
 
   useEffect(() => {
     async function getUser() {
@@ -162,6 +173,7 @@ export default function Home() {
     try {
       setCookie("userId" , "")
       setCookie("__Secure-next-auth.session-token","")
+      await signOut()
       await axios.get("/api/logout");
       // router.push("/login");
       window.location.reload()
@@ -223,14 +235,14 @@ export default function Home() {
             )}
           </nav>
         </header>
-        <div className=" bg_speed rounded-xl mb-3 flex text-center mt-5 justify-center items-center h-[80vh]">
-          <div className="text-white">
-            <h1  className="lg:text:6xl md:text-4xl text-4xl mb-3 font-semibold">
+        <div  className=" bg_speed rounded-xl mb-3 flex text-center mt-5 justify-center items-center h-[80vh]">
+          <div className="text-white" data-aos="fade-up">
+            <h1  className="lg:text:6xl md:text-4xl text-3xl mb-3 font-semibold">
               Welcome to <span className="buddy ">ExamBuddy AI</span></h1>
-            <p className="text-slate-700 text-xl font-bold">
+            <p className="text-slate-700 text-lg md:text-xl font-bold">
               One stop solution to crack exams with ease
             </p>
-            <p className="text-slate-700 text-xl font-bold">
+            <p className="text-slate-700 text-lg md:text-xl font-bold">
               {" "}
               Your All-in-One AI Study Companion for Competitive Exams
             </p>
@@ -243,26 +255,32 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="text-white text-md md:text-xl font-bold card_bg rounded-xl mb-3 flex flex-col text-center justify-center px-2 py-7 md:p-10 h-full">
+        <div className="text-white text-md md:text-xl font-bold card_bg rounded-xl mb-3 flex flex-col text-center justify-center px-2 py-7 md:p-10 h-full gap-5" >
+          <div data-aos="fade-left" >
+          <div className="text-3xl">Launch Offer</div>
+          <div className="text-2xl">Get lifetime access at  <span className="text-black">50% discount</span></div>
+          <div className="text-sm font-normal mb-6 ">Check pricing section for more info</div>
           <div>Be a part of ExamBuddy AI now</div>
           <div>Get 15 days free trial from the date of Joining</div>
           <button className="p-2 px-5 login_btn rounded-md text-white font-bold w-fit mx-auto mt-4">
                       Join Now
                     </button>
+          </div>
+            
 
         </div>
 
         <div className="items-center text-white font-bold card_bg rounded-xl mb-3 flex text-center justify-between px-2 py-10 md:p-16 h-full">
-          <div>
+          <div data-aos="fade-right" >
           <h1>Refer and Earn upto &#8377;50000/-</h1>
           <p>Terms and conditons applied*</p>
           </div>
           <div>
-          <img src="./referral.svg" alt="referral" height={400} width={400}/>
+          <img data-aos="fade-left"  src="./referral.svg" alt="referral" height={400} width={400}/>
           </div>
         </div>
 
-        <div className=" card_bg rounded-xl mb-3 flex flex-col md:flex-row text-center justify-center px-2 py-10 md:p-16 h-full">
+        <div className=" card_bg rounded-xl mb-3 flex flex-col md:flex-row text-center justify-center px-2 py-10 md:p-16 h-full" data-aos="zoom-in">
           <div className="text-white me-3">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Why Us ?
@@ -288,11 +306,11 @@ export default function Home() {
               AI model's body.
             </div>
           </div>
-          <img src="./whyus.svg" alt="referral" height={400} width={400} className="hidden md:block"/>
+          <img src="./whyus.svg" alt="referral" height={400} width={400} className="hidden md:block" data-aos="zoom-in" data-aos-delay="200"/>
         </div>
 
-        <div className="card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full">
-          <img src="./train.svg" alt="referral" height={400} width={400} className="hidden md:block"/>
+        <div className="card_bg rounded-xl mb-3 flex text-center justify-center px-2 py-10 md:p-16 h-full" data-aos="zoom-in">
+          <img src="./train.svg" alt="referral" height={400} width={400} className="hidden md:block" data-aos="zoom-in" data-aos-delay="200"/>
           <div className="text-white">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Train on your own data
@@ -322,7 +340,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="pricing" className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full">
+        <div id="pricing" className=" card_bg rounded-xl mb-3 flex text-center justify-center px-5 py-10 md:p-16 h-full" data-aos="zoom-in">
           <div className="text-white">
             <h1 className="lg:text:6xl md:text-4xl text-2xl mb-3 font-semibold">
               Pricing
@@ -330,22 +348,7 @@ export default function Home() {
 
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <div className="flex flex-wrap justify-center gap-10 ">
-                {/* <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
-                  <h1 className="font-bold">Free Plan</h1>
-                  <p>You will be able to access the companion.</p>
-                  <div>
-                    <span className="font-bold text-xl">&#8377; 0</span>/month
-                  </div>
-                  <p>&#x2714; Free</p>
-                  <Link
-                    href={user ? "/chat" : "/login"}
-                    className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
-                  >
-                    Chat Now
-                  </Link>
-                </div> */}
-
-                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4" data-aos="zoom-in" data-aos-delay="200">
                   <h1 className="font-bold">Premium Plan</h1>
                   <p>You will be able to access the companion</p>
                   <div>
@@ -369,7 +372,7 @@ export default function Home() {
                     )}
                   </button>
                 </div>
-                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4">
+                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4" data-aos="zoom-in" data-aos-delay="400">
                   <h1 className="font-bold">Supreme Plan</h1>
                   <p>
                     You will be able to access the companion 30 days for free
@@ -377,8 +380,8 @@ export default function Home() {
                   </p>
 
                   <div>
-                    <span className="font-bold text-xl">&#8377; 4999</span>
-                    /lifetime
+                    <span className="font-bold text-xl">&#8377; <s>9999</s> 4999 </span>
+                    / lifetime
                   </div>
                   <p>&#x2714; 24/7 Customer Support</p>
                   <p>&#x2714; LifeTime Access</p>
