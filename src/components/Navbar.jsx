@@ -28,10 +28,8 @@ async function getUser(){
 
 async function handleLogout(){
   try {
-    setCookie("userId","")
-    setCookie("__Secure-next-auth.session-token","")
-    // await axios.get("/api/logout")
-    // router.push("/login")
+    await axios.get("/api/logout")
+    router.push("/login")
   } catch (error) {
     console.log(error)
   }
