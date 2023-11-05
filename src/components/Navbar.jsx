@@ -26,16 +26,18 @@ async function getUser(){
       handleLogout()
     }finally{setLoader(false)}
   }
-
-async function handleLogout(){
-  try {
-    await signOut()
-    await axios.get("/api/logout")
-    router.push("/login")
-  } catch (error) {
-    console.log(error)
+  async function handleLogout() {
+    try {
+      setCookie("userId" , "")
+      setCookie("__Secure-next-auth.session-token","")
+      await signOut()
+      await axios.get("/api/logout");
+      // router.push("/login");
+      window.location.reload()
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
   useEffect(() => {
     getUser()
