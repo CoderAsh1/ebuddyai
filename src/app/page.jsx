@@ -162,7 +162,7 @@ export default function Home() {
     try {
       setCookie("userId" , "")
       setCookie("__Secure-next-auth.session-token","")
-      // await axios.get("/api/logout");
+      await axios.get("/api/logout");
       // router.push("/login");
       window.location.reload()
     } catch (error) {
