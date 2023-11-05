@@ -1,6 +1,7 @@
 'use client'
 
 import axios from 'axios'
+import { setCookie } from 'cookies-next'
 import moment from 'moment/moment'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -27,6 +28,8 @@ async function getUser(){
 
 async function handleLogout(){
   try {
+    setCookie("userId","")
+    setCookie("__Secure-next-auth.session-token","")
     await axios.get("/api/logout")
     // router.push("/login")
   } catch (error) {
