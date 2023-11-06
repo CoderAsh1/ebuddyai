@@ -184,7 +184,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-full p-2 md:p-5 bg-blue-100">
+      <div className="h-full p-2 md:p-5 bg-blue-100 overflow-hidden">
         <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
         <header className="rounded-xl text-slate-700 morph" id="signup">
           <nav className="card_blur p-5 flex justify-between items-center">

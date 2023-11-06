@@ -128,7 +128,7 @@ export default function page() {
               <div className="form-control w-full ">
                 <label className="label">
                   <span className="label-text font-bold text-md cursor-pointer">
-                    Referral Code{" "}
+                    Referral Link{" "}
                     <i
                       className="hidden md:inline"
                       onClick={copyToClip}
@@ -143,7 +143,7 @@ export default function page() {
                   type="text"
                   placeholder="Type here"
                   className="input input-bordered w-full"
-                  value={user?.referralCode}
+                  value={process.env.NEXT_PUBLIC_DOMAIN +"/signup?referral=" +user?.referralCode}
                   onChange={(e) =>
                     setUser((prev) => ({
                       ...prev,
