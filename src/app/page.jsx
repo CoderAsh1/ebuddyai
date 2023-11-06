@@ -423,6 +423,7 @@ export default function Home() {
         <button className="btn btn-sm mt-3">Close</button>
         </form>
       </dialog>
+      
       <Footer />
     </>
   );
