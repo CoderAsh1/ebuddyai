@@ -37,7 +37,7 @@ export default function page() {
 
   return (
     <div className="flex justify-center items-center text-center h-[90vh]">
-      {!user?.isSubscribed && moment.unix(user.freeTill).isBefore(moment()) ? (
+      {!user?.isSubscribed ? (
         <div className="flex justify-center items-center flex-col">
           <img src="./no_payment.webp" alt="no" height={100} width={100} />
           <p className="mb-3">Credits Expired</p>

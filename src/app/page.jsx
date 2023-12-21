@@ -184,7 +184,9 @@ export default function Home() {
 
   return (
     <>
+     <div className="p-2 bg-blue-400 font-bold rounded-md text-center text-white" >Now chat with the bhagwat gita for free here... <a target="_blank" href={'/chat_bhagwat'} className="btn btn-xs">Click here</a></div>
       <div className="h-full p-2 md:p-5 bg-blue-100 overflow-hidden">
+       
         <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
         <header className="rounded-xl text-slate-700 morph" id="signup">
           <nav className="card_blur p-5 flex justify-between items-center">
@@ -348,30 +350,6 @@ export default function Home() {
 
             <div className="morph p-5 md:p-10 mt-6 text-left leading-8">
               <div className="flex flex-wrap justify-center gap-10 ">
-                <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4" data-aos="zoom-in" data-aos-delay="200">
-                  <h1 className="font-bold">Premium Plan</h1>
-                  <p>You will be able to access the companion</p>
-                  <div>
-                    <span className="font-bold text-xl">&#8377; 799</span>/month
-                  </div>
-                  <p>&#x2714; 24/7 Customer Support</p>
-                  <button
-                    disabled={loading}
-                    // onClick={() =>
-                    //   user
-                    //     ? createSubscription("premium_plan")
-                    //     : router.push("/login")
-                    // }
-                    onClick={()=>document.getElementById("my_modal_1").showModal()}
-                    className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
-                  >
-                    {loading ? (
-                      <span className="loading loading-dots loading-sm "></span>
-                    ) : (
-                      "Get Plan"
-                    )}
-                  </button>
-                </div>
                 <div className="rounded-xl p-2 md:p-6 phone-1 max-w-sm flex flex-col gap-4" data-aos="zoom-in" data-aos-delay="400">
                   <h1 className="font-bold">Supreme Plan</h1>
                   <p>
