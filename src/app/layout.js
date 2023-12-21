@@ -19,6 +19,11 @@ export default function RootLayout({ children }) {
         id="retune.so/frame"
         src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.NEXT_PUBLIC_RETUNE_ID}`}
         async
+        ></script> 
+        <script
+         id="retune.so/frame1"
+          src={`https://retune.so/api/script/chat.js?iframe&id=${process.env.NEXT_PUBLIC_RETUNE_ID_BHAGWAT}`}
+          async
         ></script>
         
     </html>
