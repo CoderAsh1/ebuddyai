@@ -62,7 +62,7 @@ export default function Home() {
 
   async function displayRazorpay(total) {
     try {
-      // if(user?.isSubscribed) return toast.error("Already subscribed !")
+      if(user?.isSubscribed) return toast.error("Already subscribed !")
       setLoading(true);
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -366,7 +366,7 @@ export default function Home() {
                   <button
                     disabled={loading}
                     onClick={() =>
-                      user ? displayRazorpay(1000) : router.push("/login")
+                      user ? displayRazorpay(499900) : router.push("/login")
                     }
                     // onClick={()=>document.getElementById("my_modal_1").showModal()}
                     className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
