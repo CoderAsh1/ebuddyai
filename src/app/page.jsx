@@ -62,7 +62,7 @@ export default function Home() {
 
   async function displayRazorpay(total) {
     try {
-      if(user?.isSubscribed) return toast.error("Already subscribed !")
+      // if(user?.isSubscribed) return toast.error("Already subscribed !")
       setLoading(true);
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -101,7 +101,6 @@ export default function Home() {
           await axios.post("api/payment/success", data);
           await axios.put("/api/user", {
             isSubscribed: true,
-            subscriptionRenewsOn: false,
             subscriptionName:"Supreme Plan"
           });
           toast.success("Payment Successful.");
@@ -366,10 +365,10 @@ export default function Home() {
                   <p>&#x2714; Custom ChatBot With Own Data</p>
                   <button
                     disabled={loading}
-                    // onClick={() =>
-                    //   user ? displayRazorpay(799900) : router.push("/login")
-                    // }
-                    onClick={()=>document.getElementById("my_modal_1").showModal()}
+                    onClick={() =>
+                      user ? displayRazorpay(1000) : router.push("/login")
+                    }
+                    // onClick={()=>document.getElementById("my_modal_1").showModal()}
                     className="login_btn p-4 rounded-md font-bold text-center text-white mt-auto"
                   >
                     {loading ? (
